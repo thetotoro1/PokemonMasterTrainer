@@ -1,11 +1,16 @@
-package server;
+package client;
 
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import pokeObjects.Player;
@@ -242,8 +247,21 @@ public class BoardController implements Initializable{
 	
 	@FXML
 	private Circle spot75;
+	
+	@FXML
+	private void selectSpot(MouseEvent event){
+		
+		String areaClicked = event.getTarget().toString();
+		System.out.println("mouse clicked" + areaClicked);
+
+		
+	}
 
 	static private Spot[] spots = new Spot[76];
+	
+
+	 DataOutputStream toServer = null;
+	 DataInputStream fromServer = null;
 
 
 	int none = 0, catchPokemon = 1, drawCards = 2, pokecenter = 3, finalSpot = 4;
@@ -332,7 +350,23 @@ public class BoardController implements Initializable{
 		spots[74] = new Spot(catchPokemon,spot74,blue);
 		spots[75] = new Spot(catchPokemon,spot75,blue);
 		
+
 		
+			try {
+			      // Create a socket to connect to the server
+			      Socket socket = new Socket("localhost", 8002);
+			      // Socket socket = new Socket("130.254.204.36", 8000);
+			      // Socket socket = new Socket("drake.Armstrong.edu", 8000);
+
+			      // Create an input stream to receive data from the server
+			      fromServer = new DataInputStream(socket.getInputStream());
+
+			      // Create an output stream to send data to the server
+			      toServer = new DataOutputStream(socket.getOutputStream());
+			    }
+			    catch (IOException ex) {
+			      System.out.println("Error in socket connection client controller");
+			    }	
 	}
 
 	static public void sayHi() {

@@ -6,7 +6,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="800.0" prefWidth="1350.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="server.BoardController">
+<AnchorPane onMouseClicked="#selectSpot" prefHeight="800.0" prefWidth="1350.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.BoardController">
    <children>
       <Line endX="50.0" layoutX="157.0" layoutY="638.0" rotate="72.3" />
       <Line endX="50.0" layoutX="135.0" layoutY="581.0" rotate="73.1" />

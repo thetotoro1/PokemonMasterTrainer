@@ -1,104 +1,86 @@
 package server;
 	
-import java.util.ArrayList;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.SocketImpl;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
-import pokeObjects.*;
-import javafx.scene.Parent;
+import javafx.stage.WindowEvent;
 import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.shape.Polygon;
 
 
 public class Server extends Application {
-	
-	public int PLAYERCOUNT=0;
+	private static final int PORT = 8002;
+	ServerController controller;
+	ServerSocket serverSocket;
 	
 	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-
-			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Board.fxml"));
-			//AnchorPane root = fxmlLoader.load(getClass().getResource("Board.fxml"));
-			BoardController boardController = (BoardController) fxmlLoader.getController();
-			fxmlLoader.setController(boardController);
+			
+			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Server.fxml"));
 			AnchorPane root = fxmlLoader.load();
 
-			
-			
+			controller = (ServerController) fxmlLoader.getController();
 			Scene scene = new Scene(root);
 			primaryStage.setScene(scene);
-
-			
-	        Player player1 = new Player(1,157,649);
-	        root.getChildren().add(player1);
-	        
-	        //to test calling methods from boardcontroller
-//	        boardController.sayHi();
-//	        System.out.println( boardController.getSpotX(1));
-//	        System.out.println( boardController.getSpotX(2));
-//	        System.out.println( boardController.getSpotX(3));
-
-			
-			//scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-			root.setOnMouseClicked(new EventHandler<MouseEvent>(){
-				@Override
-				public void handle(MouseEvent event){
-					event.consume();
-					String areaClicked = event.getTarget().toString();
-					String[] objectClicked = areaClicked.split("\\s|,|\\[|\\]|=");
-					System.out.println("Mouse clicked detected: " + objectClicked[0] + " " + objectClicked[2]);
-					
-					
-					if(objectClicked[2].charAt(0)=='s'&&objectClicked[0].charAt(0)=='C'){
-						int spotIdNumber = Integer.parseInt(objectClicked[2].replaceAll("[^0-9]", ""));
-						System.out.println("Spot Clicked");
-						player1.setX(boardController.getSpotX(spotIdNumber));
-						player1.setY(boardController.getSpotY(spotIdNumber));
-					}
-					
-					if(objectClicked[2].charAt(0)=='s'&&objectClicked[0].charAt(0)=='R'){
-						int spotIdNumber = Integer.parseInt(objectClicked[2].replaceAll("[^0-9]", ""));
-						System.out.println("Spot Clicked");
-						player1.setX(boardController.getCitySpotX(spotIdNumber));
-						player1.setY(boardController.getCitySpotY(spotIdNumber));
-					}
-					
-					
-					
-					//System.out.println(boardController.spots[1].getAction());
-
-					
-					//player1.setX(boardController.spots[1].getCircle().getCenterX());
-					//player1.setY(boardController.spots[1].getCircle().getCenterY());
-					
-					
-				}
-			});
-		
-			
-			
-			
-			
-			
-			
-			
 			primaryStage.show();
-			
-			
 		} catch(Exception e) {
 			e.printStackTrace();
 		}
-		
-		
-		
+			
+		new Thread( () -> {
+		      try {
+		        // Create a server socket
+		        serverSocket = new ServerSocket(PORT);
+		  
+		        // Listen for a connection request
+		        Socket socket = serverSocket.accept();
+		  
+		        // Create data input and output streams
+		        DataInputStream inputFromClient = new DataInputStream(
+		          socket.getInputStream());
+		        DataOutputStream outputToClient = new DataOutputStream(
+		          socket.getOutputStream());
+		        
+		        
+		  
+		        while (true) {
+		          // Receive radius from the client
+		          double number = inputFromClient.readDouble();
+		          
+		          controller.appendText(number);
+		        }
+		      }
+		      catch(IOException ex) {
+				System.out.println("Error in server thread");
+
+		        ex.printStackTrace();
+		      }
+		    }).start();
 		
 	}
+	
+	@Override
+	public void stop(){
+	    System.out.println("Stop ran");
+	    try {
+			serverSocket.close();
+		} catch (IOException e) {
+			System.out.println("Error in server stop method");
+			e.printStackTrace();
+		}
+	}
+	
 	public static void main(String[] args) {
 		launch(args);
 	}
