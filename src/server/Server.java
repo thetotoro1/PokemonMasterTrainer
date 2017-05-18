@@ -18,7 +18,7 @@ import javafx.scene.layout.AnchorPane;
 
 
 public class Server extends Application {
-	private static final int PORT = 8002;
+	private static final int PORT = 8003;
 	ServerController controller;
 	ServerSocket serverSocket;
 	

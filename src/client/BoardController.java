@@ -248,14 +248,7 @@ public class BoardController implements Initializable{
 	@FXML
 	private Circle spot75;
 	
-	@FXML
-	private void selectSpot(MouseEvent event){
-		
-		String areaClicked = event.getTarget().toString();
-		System.out.println("mouse clicked" + areaClicked);
-
-		
-	}
+	
 
 	static private Spot[] spots = new Spot[76];
 	
@@ -354,7 +347,7 @@ public class BoardController implements Initializable{
 		
 			try {
 			      // Create a socket to connect to the server
-			      Socket socket = new Socket("localhost", 8002);
+			      Socket socket = new Socket("localhost", 8003);
 			      // Socket socket = new Socket("130.254.204.36", 8000);
 			      // Socket socket = new Socket("drake.Armstrong.edu", 8000);
 
@@ -369,6 +362,23 @@ public class BoardController implements Initializable{
 			    }	
 	}
 
+	
+	@FXML
+	private void selectSpot(MouseEvent event){
+		
+		String areaClicked = event.getTarget().toString();
+		System.out.println("mouse clicked" + areaClicked);
+		try {
+			toServer.writeDouble(22);
+		} catch (IOException e) {
+			System.out.println("Error in selectSpot board controller");
+			e.printStackTrace();
+		}
+
+		
+	}
+	
+	
 	static public void sayHi() {
 		System.out.println("Hello");
 	}
