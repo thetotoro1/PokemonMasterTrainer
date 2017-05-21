@@ -11,12 +11,15 @@ import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import pokeObjects.Player;
 import pokeObjects.Spot;
+import pokechip.PokeChip;
+import pokechip.PokeChipConstants;
 
-public class BoardController implements Initializable{
+public class BoardController implements Initializable, PokeChipConstants{
 
 	
 	
@@ -248,6 +251,129 @@ public class BoardController implements Initializable{
 	@FXML
 	private Circle spot75;
 	
+	@FXML
+	private Circle pokeSpot1;
+	
+	@FXML
+	private Circle pokeSpot3;
+	
+	@FXML
+	private Circle pokeSpot6;
+	
+	@FXML
+	private Circle pokeSpot7;
+	
+	@FXML
+	private Circle pokeSpot9;
+	
+	@FXML
+	private Circle pokeSpot10;
+	
+	@FXML
+	private Circle pokeSpot11;
+	
+	@FXML
+	private Circle pokeSpot14;
+	
+	@FXML
+	private Circle pokeSpot16;
+	
+	@FXML
+	private Circle pokeSpot17;
+	
+	@FXML
+	private Circle pokeSpot18;
+	
+	@FXML
+	private Circle pokeSpot20;
+	
+	@FXML
+	private Circle pokeSpot21;
+	
+	@FXML
+	private Circle pokeSpot24;
+	
+	@FXML
+	private Circle pokeSpot26;
+	
+	@FXML
+	private Circle pokeSpot27;
+	
+	@FXML
+	private Circle pokeSpot29;
+	
+	@FXML
+	private Circle pokeSpot33;
+	
+	@FXML
+	private Circle pokeSpot36;
+	
+	@FXML
+	private Circle pokeSpot38;
+	
+	@FXML
+	private Circle pokeSpot41;
+	
+	@FXML
+	private Circle pokeSpot45;
+	
+	@FXML
+	private Circle pokeSpot47;
+	
+	@FXML
+	private Circle pokeSpot49;
+	
+	@FXML
+	private Circle pokeSpot50;
+	
+	@FXML
+	private Circle pokeSpot52;
+	
+	@FXML
+	private Circle pokeSpot53;
+	
+	@FXML
+	private Circle pokeSpot55;
+	
+	@FXML
+	private Circle pokeSpot60;
+	
+	@FXML
+	private Circle pokeSpot62;
+	
+	@FXML
+	private Circle pokeSpot64;
+	
+	@FXML
+	private Circle pokeSpot65;
+	
+	@FXML
+	private Circle pokeSpot66;
+	
+	@FXML
+	private Circle pokeSpot68;
+	
+	@FXML
+	private Circle pokeSpot69;
+	
+	@FXML
+	private Circle pokeSpot74;
+	
+	@FXML
+	private Circle legendary1;
+	
+	@FXML
+	private Circle legendary2;
+	
+	@FXML
+	private Circle legendary3;
+	
+	@FXML
+	private Circle legendary4;
+	
+	
+	@FXML
+	private AnchorPane anchorPane;
 	
 
 	static private Spot[] spots = new Spot[76];
@@ -344,22 +470,13 @@ public class BoardController implements Initializable{
 		spots[75] = new Spot(catchPokemon,spot75,blue);
 		
 
+		PokeChip pokeChip = new PokeChip(PINK, 1, "Bulbasuar", 4, 4, GRASS);
+		pokeChip.anchorPane.setLayoutX(132-40);
+		pokeChip.anchorPane.setLayoutY(613-40);
+		anchorPane.getChildren().add(pokeChip.anchorPane);
 		
-			try {
-			      // Create a socket to connect to the server
-			      Socket socket = new Socket("localhost", 8003);
-			      // Socket socket = new Socket("130.254.204.36", 8000);
-			      // Socket socket = new Socket("drake.Armstrong.edu", 8000);
-
-			      // Create an input stream to receive data from the server
-			      fromServer = new DataInputStream(socket.getInputStream());
-
-			      // Create an output stream to send data to the server
-			      toServer = new DataOutputStream(socket.getOutputStream());
-			    }
-			    catch (IOException ex) {
-			      System.out.println("Error in socket connection client controller");
-			    }	
+		
+		System.out.println("Circle location: " + spots[1].getCircle().getLayoutX());
 	}
 
 	
@@ -368,12 +485,6 @@ public class BoardController implements Initializable{
 		
 		String areaClicked = event.getTarget().toString();
 		System.out.println("mouse clicked" + areaClicked);
-		try {
-			toServer.writeDouble(22);
-		} catch (IOException e) {
-			System.out.println("Error in selectSpot board controller");
-			e.printStackTrace();
-		}
 
 		
 	}

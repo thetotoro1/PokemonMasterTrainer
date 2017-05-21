@@ -47,18 +47,20 @@ public class Server extends Application {
 		        Socket socket = serverSocket.accept();
 		  
 		        // Create data input and output streams
-		        DataInputStream inputFromClient = new DataInputStream(
+		        DataInputStream fromClient = new DataInputStream(
 		          socket.getInputStream());
-		        DataOutputStream outputToClient = new DataOutputStream(
+		        DataOutputStream toClient = new DataOutputStream(
 		          socket.getOutputStream());
 		        
 		        
 		  
 		        while (true) {
 		          // Receive radius from the client
-		          double number = inputFromClient.readDouble();
+		          double number = fromClient.readDouble();
 		          
 		          controller.appendText(number);
+		          
+		          toClient.writeInt((int)number);
 		        }
 		      }
 		      catch(IOException ex) {
