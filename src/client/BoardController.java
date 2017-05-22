@@ -2,6 +2,7 @@ package client;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.URL;
@@ -16,10 +17,11 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import pokeObjects.Player;
 import pokeObjects.Spot;
+import pokeObjects.SpotConstants;
 import pokechip.PokeChip;
 import pokechip.PokeChipConstants;
 
-public class BoardController implements Initializable, PokeChipConstants{
+public class BoardController implements Initializable, PokeChipConstants, SpotConstants{
 
 	
 	
@@ -383,8 +385,7 @@ public class BoardController implements Initializable, PokeChipConstants{
 	 DataInputStream fromServer = null;
 
 
-	int none = 0, catchPokemon = 1, drawCards = 2, pokecenter = 3, finalSpot = 4;
-	int pink = 0, green = 1, blue = 2, red = 3, gold = 4;
+
 	
 	
 
@@ -396,7 +397,7 @@ public class BoardController implements Initializable, PokeChipConstants{
 		spots[1] = new Spot(catchPokemon,spot1,pokeSpot1,pink);
 		spots[2] = new Spot(drawCards,spot2,pink);
 		spots[3] = new Spot(catchPokemon,spot3,pokeSpot3,pink);
-		spots[4] = new Spot(drawCards,spot4);
+		spots[4] = new Spot(citySpot,spot4);
 		spots[5] = new Spot(drawCards,spot5,pink);
 		spots[6] = new Spot(catchPokemon,spot6, pokeSpot6,pink);
 		spots[7] = new Spot(catchPokemon,spot7, pokeSpot7,pink);
@@ -404,7 +405,7 @@ public class BoardController implements Initializable, PokeChipConstants{
 		spots[9] = new Spot(catchPokemon,spot9, pokeSpot9,pink);
 		spots[10] = new Spot(catchPokemon,spot10, pokeSpot10,pink);
 		spots[11] = new Spot(catchPokemon,spot11, pokeSpot11,pink);
-		spots[12] = new Spot(drawCards,spot12);
+		spots[12] = new Spot(citySpot,spot12);
 		spots[13] = new Spot(drawCards,spot13,pink);
 		spots[14] = new Spot(catchPokemon,spot14, pokeSpot14,pink);
 		spots[15] = new Spot(drawCards,spot15,pink);
@@ -423,11 +424,11 @@ public class BoardController implements Initializable, PokeChipConstants{
 		spots[28] = new Spot(drawCards,spot28,green);
 		spots[29] = new Spot(catchPokemon,spot29, pokeSpot29,green);
 		spots[30] = new Spot(drawCards,spot30,green);
-		spots[31] = new Spot(drawCards,spot31);
+		spots[31] = new Spot(citySpot,spot31);
 		spots[32] = new Spot(drawCards,spot32,green);
 		spots[33] = new Spot(catchPokemon,spot33, pokeSpot33,green);
 		spots[34] = new Spot(drawCards,spot34,green);
-		spots[35] = new Spot(drawCards,spot35);
+		spots[35] = new Spot(citySpot,spot35);
 		spots[36] = new Spot(catchPokemon,spot36, pokeSpot36,green);
 		spots[37] = new Spot(drawCards,spot37,green);
 		spots[38] = new Spot(catchPokemon,spot38, pokeSpot38,green);
@@ -450,7 +451,7 @@ public class BoardController implements Initializable, PokeChipConstants{
 		spots[55] = new Spot(catchPokemon,spot55, pokeSpot55,blue);
 		spots[56] = new Spot(drawCards,spot56,blue);
 		spots[57] = new Spot(drawCards,spot57,blue);
-		spots[58] = new Spot(drawCards,spot58);
+		spots[58] = new Spot(citySpot,spot58);
 		spots[59] = new Spot(drawCards,spot59,red);
 		spots[60] = new Spot(catchPokemon,spot60, pokeSpot60,red);
 		spots[61] = new Spot(drawCards,spot61,red);
@@ -459,7 +460,7 @@ public class BoardController implements Initializable, PokeChipConstants{
 		spots[64] = new Spot(catchPokemon,spot64, pokeSpot64,red);
 		spots[65] = new Spot(catchPokemon,spot65, pokeSpot65,red);
 		spots[66] = new Spot(catchPokemon,spot66, pokeSpot66,red);
-		spots[67] = new Spot(drawCards,spot67);
+		spots[67] = new Spot(citySpot,spot67);
 		spots[68] = new Spot(catchPokemon,spot68, pokeSpot68,red);
 		spots[69] = new Spot(catchPokemon,spot69, pokeSpot69,red);
 		spots[70] = new Spot(drawCards,spot70,red);
@@ -470,20 +471,62 @@ public class BoardController implements Initializable, PokeChipConstants{
 		spots[75] = new Spot(drawCards,spot75,blue);
 		
 
-		PokeChip pokeChip = new PokeChip(PINK, 39);
 		
-		int index = 68;
-		
-		if(spots[index].getAction()==catchPokemon){
-			
-			pokeChip.anchorPane.setLayoutX(spots[index].getPokeCircle().getLayoutX()-40);
-			pokeChip.anchorPane.setLayoutY(spots[index].getPokeCircle().getLayoutY()-40);
-			anchorPane.getChildren().add(pokeChip.anchorPane);
-			
-		}
+	
 		
 		
 		
+		
+		//this fills in every spot
+//		for(int index=0, i=1;index<76;index++,i++){
+//			
+//			PokeChip pokeChip = new PokeChip(PINK, i);
+//
+//			
+//
+//		if(spots[index].getAction()==catchPokemon){
+//			
+//			pokeChip.anchorPane.setLayoutX(spots[index].getPokeCircle().getLayoutX()-40);
+//			pokeChip.anchorPane.setLayoutY(spots[index].getPokeCircle().getLayoutY()-40);
+//			anchorPane.getChildren().add(pokeChip.anchorPane);
+//			
+//			Player player1 = new Player(1);
+//			player1.anchorPane.setLayoutX(spots[index].getSpotCircle().getLayoutX()-17);
+//			player1.anchorPane.setLayoutY(spots[index].getSpotCircle().getLayoutY()-16);
+//			anchorPane.getChildren().add(player1.anchorPane);
+//			
+//			Player player2 = new Player(2);
+//			player2.anchorPane.setLayoutX(spots[index].getSpotCircle().getLayoutX()+2);
+//			player2.anchorPane.setLayoutY(spots[index].getSpotCircle().getLayoutY()-16);
+//			anchorPane.getChildren().add(player2.anchorPane);
+//			
+//		}
+//		else if(spots[index].getAction()==drawCards){
+//			
+//			Player player1 = new Player(1);
+//			player1.anchorPane.setLayoutX(spots[index].getSpotCircle().getLayoutX()-17);
+//			player1.anchorPane.setLayoutY(spots[index].getSpotCircle().getLayoutY()-16);
+//			anchorPane.getChildren().add(player1.anchorPane);
+//			
+//			Player player2 = new Player(2);
+//			player2.anchorPane.setLayoutX(spots[index].getSpotCircle().getLayoutX()+2);
+//			player2.anchorPane.setLayoutY(spots[index].getSpotCircle().getLayoutY()-16);
+//			anchorPane.getChildren().add(player2.anchorPane);
+//			
+//		}
+//		else{
+//			Player player1 = new Player(1);
+//			player1.anchorPane.setLayoutX(spots[index].getRectangle().getLayoutX()+23);
+//			player1.anchorPane.setLayoutY(spots[index].getRectangle().getLayoutY()+10);
+//			anchorPane.getChildren().add(player1.anchorPane);
+//			
+//			Player player2 = new Player(2);
+//			player2.anchorPane.setLayoutX(spots[index].getRectangle().getLayoutX()+78);
+//			player2.anchorPane.setLayoutY(spots[index].getRectangle().getLayoutY()+10);
+//			anchorPane.getChildren().add(player2.anchorPane);
+//		}
+//	}
+	
 		
 	}
 
