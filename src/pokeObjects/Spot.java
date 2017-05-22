@@ -8,31 +8,50 @@ import javafx.scene.shape.Rectangle;
 public class Spot {
 
 	private int action;
-	private Circle circle;
+	private Circle spotCircle;
+	private Circle pokeCircle;
 	private Rectangle rectangle;
 	private int color;
 	
-	public Spot(int action, Circle circle){
-		this.action = action;
-		this.circle = circle;
-	}
+//	public Spot(int action, Circle spotCircle){
+//		this.action = action;
+//		this.spotCircle = spotCircle;
+//		this.pokeCircle = null;
+//		this.rectangle = null;
+//		this.color = -1;
+//	}
 
 	public Spot(int action, Rectangle rectangle) {
 		this.action = action;
-		this.rectangle = rectangle;	}
+		this.rectangle = rectangle;	
+		this.spotCircle = null;
+		this.pokeCircle = null;
+		this.color = -1;
+	}
 
-	public Spot(int action, Circle circle, int color) {
+	public Spot(int action, Circle spotCircle, int color) {
 		this.action = action;
-		this.circle = circle;
+		this.spotCircle = spotCircle;
 		this.color = color;
+	}
+
+	public Spot(int action, Circle spotCircle, Circle pokeCircle, int color) {
+		this.action = action;
+		this.spotCircle = spotCircle;
+		this.pokeCircle = pokeCircle;
+		this.color = color;	
 	}
 
 	public int getAction() {
 		return action;
 	}
 
-	public Circle getCircle() {
-		return circle;
+	public Circle getSpotCircle() {
+		return spotCircle;
+	}
+
+	public Circle getPokeCircle() {
+		return pokeCircle;
 	}
 
 	public Rectangle getRectangle() {
@@ -42,7 +61,8 @@ public class Spot {
 	public int getColor() {
 		return color;
 	}
-	
+
+
 	
 	
 	

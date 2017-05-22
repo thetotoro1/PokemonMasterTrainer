@@ -1,0 +1,152 @@
+ Pokémon	Power Points	Attack Points		 Type	
+Bulbasaur	4	4		Grass	Poison
+Ivysaur	7	7		Grass	Poison
+Venusaur	7	8		Grass	Poison
+Charmander	5	4		Fire	
+Charmeleon	7	7		Fire	
+Charizard	7	8		Fire	Flying
+Squirtle	5	4		Water	
+Wartortle	7	7		Water	
+Blastoise	7	8		Water	
+Caterpie	2	1		Bug	
+Metapod	4	3		Bug	
+Butterfree	6	5		Bug	Flying
+Weedle	2	2		Bug	Poison
+Kakuna	4	3		Bug	Poison
+Beedrill	6	5		Bug	Poison
+Pidgey	2	2		Normal	Flying
+Pidgeotto	4	4		Normal	Flying
+Pidgeot	6	6		Normal	Flying
+Rattata	2	2		Normal	
+Raticate	6	6		Normal	
+Spearow	2	2		Normal	Flying
+Fearow	6	5		Normal	Flying
+Ekans	3	3		Poison	
+Arbok	6	5		Poison	
+Pikachu	3	3		Electric	
+Raichu	6	6		Electric	
+Sandshrew	3	2		Ground	
+Sandslash	4	5		Ground	
+Nidoran♀	2	2		Poison	
+Nidorina	4	5		Poison	
+Nidoqueen	7	5		Poison	Ground
+Nidoran♂	2	3		Poison	
+Nidorino	5	5		Poison	
+Nidoking	7	6		Poison	Ground
+Clefairy	3	3		Fairy	
+Clefable	5	4		Fairy	
+Vulpix	3	1		Fire	
+Ninetales	7	5		Fire	
+Jigglypuff	3	2		Normal	Fairy
+Wigglytuff	5	4		Normal	Fairy
+Zubat	2	3		Poison	Flying
+Golbat	4	4		Poison	Flying
+Oddish	2	2		Grass	Poison
+Gloom	4	5		Grass	Poison
+Vileplume	7	5		Grass	Poison
+Paras	3	1		Bug	Grass
+Parasect	5	5		Bug	Grass
+Venonat	2	2		Bug	Poison
+Venomoth	6	5		Bug	Poison
+Diglett	2	3		Ground	
+Dugtrio	4	4		Ground	
+Meowth	3	3		Normal	
+Persian	7	6		Normal	
+Psyduck	3	2		Water	
+Golduck	6	5		Water	
+Mankey	4	5		Fighting	
+Primeape	7	7		Fighting	
+Growlithe	5	4		Fire	
+Arcanine	6	7		Fire	
+Poliwag	2	2		Water	
+Poliwhirl	4	4		Water	
+Poliwrath	6	7		Water	Fighting
+Abra	3	2		Psychic	
+Kadabra	5	4		Psychic	
+Alakazam	6	7		Psychic	
+Machop	4	5		Fighting	
+Machoke	6	7		Fighting	
+Machamp	7	8		Fighting	
+Bellsprout	2	1		Grass	Poison
+Weepinbell	4	3		Grass	Poison
+Victreebel	6	6		Grass	Poison
+Tentacool	2	1		Water	Poison
+Tentacruel	4	4		Water	Poison
+Geodude	2	1		Rock	Ground
+Graveler	4	4		Rock	Ground
+Golem	6	6		Rock	Ground
+Ponyta	5	5		Fire	
+Rapidash	6	7		Fire	
+Slowpoke	3	2		Water	Psychic
+Slowbro	5	3		Water	Psychic
+Magnemite	2	2		Electric	Steel
+Magneton	4	4		Electric	Steel
+Farfetch'd	6	5		Normal	Flying
+Doduo	2	3		Normal	Flying
+Dodrio	5	5		Normal	Flying
+Seel	5	5		Water	
+Dewgong	6	7		Water	Ice
+Grimer	3	3		Poison	
+Muk	4	4		Poison	
+Shellder	2	2		Water	
+Cloyster	4	5		Water	Ice
+Gastly	2	2		Ghost	Poison
+Haunter	5	4		Ghost	Poison
+Gengar	7	7		Ghost	Poison
+Onix	6	7		Rock	Ground
+Drowzee	4	4		Psychic	
+Hypno	7	6		Psychic	
+Krabby	2	3		Water	
+Kingler	4	5		Water	
+Voltorb	3	3		Electric	
+Electrode	4	5		Electric	
+Exeggcute	2	1		Grass	Psychic
+Exeggutor	6	7		Grass	Psychic
+Cubone	4	3		Ground	
+Marowak	6	6		Ground	
+Hitmonlee	6	7		Fighting	
+Hitmonchan	6	7		Fighting	
+Lickitung	5	4		Normal	
+Koffing	5	4		Poison	
+Weezing	6	5		Poison	
+Rhyhorn	6	6		Ground	Rock
+Rhydon	6	8		Ground	Rock
+Chansey	7	7		Normal	
+Tangela	4	3		Grass	
+Kangaskhan	6	7		Normal	
+Horsea	2	1		Water	
+Seadra	4	5		Water	
+Goldeen	2	2		Water	
+Seaking	4	4		Water	
+Staryu	3	2		Water	
+Starmie	4	4		Water	Psychic
+Mr. Mime	7	6		Psychic	Fairy
+Scyther	6	7		Bug	Flying
+Jynx	6	5		Ice	Psychic
+Electabuzz	6	8		Electric	
+Magmar	6	7		Fire	
+Pinsir	6	5		Bug	
+Tauros	7	8		Normal	
+Magikarp	2	1		Water	
+Gyarados	7	8		Water	Flying
+Lapras	6	7		Water	Ice
+Ditto	5	5		Normal	
+Eevee	5	3		Normal	
+Vaporeon	7	6		Water	
+Jolteon	7	6		Electric	
+Flareon	7	6		Fire	
+Porygon	5	4		Normal	
+Omanyte	7	5		Rock	Water
+Omastar	6	7		Rock	Water
+Kabuto	7	5		Rock	Water
+Kabutops	6	7		Rock	Water
+Aerodactyl	6	7		Rock	Flying
+Snorlax	7	7		Normal	
+Articuno	8	9		Ice	Flying
+Zapdos	8	9		Electric	Flying
+Moltres	8	9		Fire	Flying
+Dratini	7	5		Dragon	
+Dragonair	6	6		Dragon	
+Dragonite	7	7		Dragon	Flying
+Mewtwo	9	9		Psychic	
+Mew	9	10		Psychic	
