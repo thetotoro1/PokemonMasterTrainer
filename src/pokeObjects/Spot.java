@@ -13,6 +13,7 @@ public class Spot implements SpotConstants{
 	private Rectangle rectangle;
 	private int color;
 	private PokeChip pokemon;
+	private Boolean spotOpen = false;
 	
 //	public Spot(int action, Circle spotCircle){
 //		this.action = action;
@@ -21,6 +22,14 @@ public class Spot implements SpotConstants{
 //		this.rectangle = null;
 //		this.color = -1;
 //	}
+
+	public Boolean getSpotOpen() {
+		return spotOpen;
+	}
+
+	public void setSpotOpen(Boolean spotOpen) {
+		this.spotOpen = spotOpen;
+	}
 
 	public Spot(int action, Rectangle rectangle) {
 		this.action = action;
@@ -64,13 +73,27 @@ public class Spot implements SpotConstants{
 	}
 
 	public void highlight() {
-		if(this.action==pokecenter||this.action==none||this.action==citySpot){
+		this.spotOpen = true;
+		if(this.action==pokecenter||this.action==none||this.action==citySpot||this.action==finalSpot){
 			this.rectangle.setStroke(Color.GOLD);
 			this.rectangle.setStrokeWidth(5);
 		}
 		else{
 			this.spotCircle.setStroke(Color.GOLD);
 			this.spotCircle.setStrokeWidth(5);
+		}
+	}
+
+	public void highlightOff() {
+		this.spotOpen = false;
+		if(this.action==pokecenter||this.action==none||this.action==citySpot||this.action==finalSpot){
+			this.rectangle.setStroke(Color.GOLD);
+			this.rectangle.setStrokeWidth(0);
+		}
+		else{
+			this.spotCircle.setStroke(Color.GOLD);
+			
+			this.spotCircle.setStrokeWidth(0);
 		}
 	}
 

@@ -9,6 +9,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
@@ -23,7 +24,7 @@ import pokeObjects.SpotConstants;
 import pokechip.PokeChip;
 import pokechip.PokeChipConstants;
 
-public class BoardController implements Initializable, PokeChipConstants, SpotConstants{
+public class BoardController implements Initializable, PokeChipConstants, SpotConstants, GameConstants{
 
 	
 	
@@ -414,10 +415,15 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 	DataInputStream fromServer = null;
 
 	Player player1, player2;
+	Player[] players;
 
 	static int player;
 
-	private Boolean pastCerulean = false;
+	private boolean pastCerulean = false;
+
+	private boolean isMoving;
+
+	private int currentSpot = 0;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -503,6 +509,9 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		//create player objects
 		player1 = new Player(1);
 		player2 = new Player(2);
+		players = new Player[2];
+		players[PLAYER1] = player1;
+		players[PLAYER2] = player2;
 		
 		//TO-DO this should be done by opening socket connections. server sends which player and this is set
 		player = 1;
@@ -511,81 +520,113 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		anchorPane.getChildren().addAll(player1.anchorPane,player2.anchorPane);
 		
 		//set player spots to starting town
-		setSpot(26,1);
+		setSpot(0,1);
 		setSpot(0,2);
 		
 		//set die
 		setDie(1);
 		
-		//TO-DO this is set through when you accept moving past cerulean on the board.
+		// this is set through when you accept moving past cerulean on the board.
 		pastCerulean= true;
 		
 		//test spots highlighter
-		highlightOpenSpots(6);
+		highlightSpotsOn(6);
 		
-		
-		//this fills in every spot
-//		for(int index=0, i=1;index<76;index++,i++){
-//			
-//			PokeChip pokeChip = new PokeChip(PINK, i);
-//
-//			
-//
-//		if(spots[index].getAction()==catchPokemon){
-//			
-//			pokeChip.anchorPane.setLayoutX(spots[index].getPokeCircle().getLayoutX()-40);
-//			pokeChip.anchorPane.setLayoutY(spots[index].getPokeCircle().getLayoutY()-40);
-//			anchorPane.getChildren().add(pokeChip.anchorPane);
-//			
-//			Player player1 = new Player(1);
-//			player1.anchorPane.setLayoutX(spots[index].getSpotCircle().getLayoutX()-17);
-//			player1.anchorPane.setLayoutY(spots[index].getSpotCircle().getLayoutY()-16);
-//			anchorPane.getChildren().add(player1.anchorPane);
-//			
-//			Player player2 = new Player(2);
-//			player2.anchorPane.setLayoutX(spots[index].getSpotCircle().getLayoutX()+2);
-//			player2.anchorPane.setLayoutY(spots[index].getSpotCircle().getLayoutY()-16);
-//			anchorPane.getChildren().add(player2.anchorPane);
-//			
-//		}
-//		else if(spots[index].getAction()==drawCards){
-//			
-//			Player player1 = new Player(1);
-//			player1.anchorPane.setLayoutX(spots[index].getSpotCircle().getLayoutX()-17);
-//			player1.anchorPane.setLayoutY(spots[index].getSpotCircle().getLayoutY()-16);
-//			anchorPane.getChildren().add(player1.anchorPane);
-//			
-//			Player player2 = new Player(2);
-//			player2.anchorPane.setLayoutX(spots[index].getSpotCircle().getLayoutX()+2);
-//			player2.anchorPane.setLayoutY(spots[index].getSpotCircle().getLayoutY()-16);
-//			anchorPane.getChildren().add(player2.anchorPane);
-//			
-//		}
-//		else{
-//			Player player1 = new Player(1);
-//			player1.anchorPane.setLayoutX(spots[index].getRectangle().getLayoutX()+23);
-//			player1.anchorPane.setLayoutY(spots[index].getRectangle().getLayoutY()+10);
-//			anchorPane.getChildren().add(player1.anchorPane);
-//			
-//			Player player2 = new Player(2);
-//			player2.anchorPane.setLayoutX(spots[index].getRectangle().getLayoutX()+78);
-//			player2.anchorPane.setLayoutY(spots[index].getRectangle().getLayoutY()+10);
-//			anchorPane.getChildren().add(player2.anchorPane);
-//		}
-//	}
+		//TO-DO this is set after a roll
+		isMoving=true;
+
 	
 		
 	}
 
+	
+	private void testAllSpots(){
+		//this fills in every spot
+		for(int index=0, i=1;index<76;index++,i++){
+			
+			PokeChip pokeChip = new PokeChip(PINK, i);
+
+			
+
+		if(spots[index].getAction()==catchPokemon){
+			
+			pokeChip.anchorPane.setLayoutX(spots[index].getPokeCircle().getLayoutX()-40);
+			pokeChip.anchorPane.setLayoutY(spots[index].getPokeCircle().getLayoutY()-40);
+			anchorPane.getChildren().add(pokeChip.anchorPane);
+			
+			Player player1 = new Player(1);
+			player1.anchorPane.setLayoutX(spots[index].getSpotCircle().getLayoutX()-17);
+			player1.anchorPane.setLayoutY(spots[index].getSpotCircle().getLayoutY()-16);
+			anchorPane.getChildren().add(player1.anchorPane);
+			
+			Player player2 = new Player(2);
+			player2.anchorPane.setLayoutX(spots[index].getSpotCircle().getLayoutX()+2);
+			player2.anchorPane.setLayoutY(spots[index].getSpotCircle().getLayoutY()-16);
+			anchorPane.getChildren().add(player2.anchorPane);
+			
+		}
+		else if(spots[index].getAction()==drawCards){
+			
+			Player player1 = new Player(1);
+			player1.anchorPane.setLayoutX(spots[index].getSpotCircle().getLayoutX()-17);
+			player1.anchorPane.setLayoutY(spots[index].getSpotCircle().getLayoutY()-16);
+			anchorPane.getChildren().add(player1.anchorPane);
+			
+			Player player2 = new Player(2);
+			player2.anchorPane.setLayoutX(spots[index].getSpotCircle().getLayoutX()+2);
+			player2.anchorPane.setLayoutY(spots[index].getSpotCircle().getLayoutY()-16);
+			anchorPane.getChildren().add(player2.anchorPane);
+			
+		}
+		else{
+			Player player1 = new Player(1);
+			player1.anchorPane.setLayoutX(spots[index].getRectangle().getLayoutX()+23);
+			player1.anchorPane.setLayoutY(spots[index].getRectangle().getLayoutY()+10);
+			anchorPane.getChildren().add(player1.anchorPane);
+			
+			Player player2 = new Player(2);
+			player2.anchorPane.setLayoutX(spots[index].getRectangle().getLayoutX()+78);
+			player2.anchorPane.setLayoutY(spots[index].getRectangle().getLayoutY()+10);
+			anchorPane.getChildren().add(player2.anchorPane);
+		}
+	}
+	}
 	
 	@FXML
-	private void selectSpot(MouseEvent event){
+	private void handleClicks(MouseEvent clickedSpot){
 		
-		String areaClicked = event.getTarget().toString();
-		System.out.println("mouse clicked" + areaClicked);
+		String areaClicked = clickedSpot.getTarget().toString();
+		System.out.println("spot clicked " + areaClicked);
+		if(isMoving){
+			
+			areaClicked = areaClicked.replaceAll("[^\\d .]", "");
+			System.out.println("area: " + areaClicked);
+			String[] split = areaClicked.split("\\ ");
+			int spotNumber = Integer.parseInt(split[0]);
+			System.out.println("spot number: " + spotNumber);
+			
+			//if the spot is open for movement
+			if(spots[spotNumber].getSpotOpen()==true){
+				
+				//move character and set currentSpot var
+				setSpot(spotNumber, player);
+				players[player].currentSpot = spotNumber;
+				hightlightSpotsOff();
+				
+				if(spotNumber>=23){
+					pastCerulean = true;
+				}
+				
+				//to test movement
+				highlightSpotsOn(6);
+			}
 
+			
+		}
 		
 	}
+
+
 
 
 	static public double getSpotX(int spotNumber) {
@@ -607,7 +648,7 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 	
 	private void setSpot(int spotNumber, int playerNumber){
 		//if a city spot
-		if(spots[spotNumber].getAction()==citySpot||spots[spotNumber].getAction()==pokecenter||spots[spotNumber].getAction()==none){
+		if(spots[spotNumber].getAction()==citySpot||spots[spotNumber].getAction()==pokecenter||spots[spotNumber].getAction()==none||spots[spotNumber].getAction()==finalSpot){
 			if(playerNumber==1){
 				player1.currentSpot = spotNumber;
 				player1.anchorPane.setLayoutX(spots[spotNumber].getRectangle().getLayoutX()+23);
@@ -688,7 +729,7 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		
 	}
 
-	private void highlightOpenSpots(int numberRolled){	
+	private void highlightSpotsOn(int numberRolled){	
 		
 		int[] openSpots;
 		
@@ -711,15 +752,22 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		}
 		
 		for (int i = 0; i < openSpots.length; i++) {
+			if(players[player].currentSpot != openSpots[i]){
 			spots[openSpots[i]].highlight();
+			}
 		}
 		
 		
 		
 	}
 
-
-
+	private void hightlightSpotsOff(){
+		for (int i = 0; i < spots.length; i++) {
+			spots[i].highlightOff();
+		}
+	}
 
 
 }
+
+

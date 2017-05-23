@@ -133,7 +133,7 @@ public class FindSpots {
 		int previousSpot = currentSpot;
 		currentSpot += 1;
 		
-		System.out.println("Steps left: "+stepsLeft+" Current Spot: "+currentSpot +" previous spot: "+previousSpot);
+		//System.out.println("Steps left: "+stepsLeft+" Current Spot: "+currentSpot +" previous spot: "+previousSpot);
 
 		if(currentSpot==otherPlayersSpot){
 			spotList.add(currentSpot);
@@ -339,7 +339,7 @@ public class FindSpots {
 		int previousSpot = currentSpot;
 		currentSpot -= 1;
 		
-		System.out.println("Steps left: "+stepsLeft+" Current Spot: "+currentSpot +" previous spot: "+previousSpot);
+		//System.out.println("Steps left: "+stepsLeft+" Current Spot: "+currentSpot +" previous spot: "+previousSpot);
 
 		if(currentSpot==otherPlayersSpot){
 			spotList.add(currentSpot);
@@ -544,7 +544,7 @@ public class FindSpots {
 		int previousSpot = currentSpot;
 		currentSpot = newSpot;
 		
-		System.out.println("Steps left: "+stepsLeft+" Current Spot: "+currentSpot +" previous spot: "+previousSpot);
+		//System.out.println("Steps left: "+stepsLeft+" Current Spot: "+currentSpot +" previous spot: "+previousSpot);
 
 		if(currentSpot==otherPlayersSpot){
 			spotList.add(currentSpot);
@@ -748,7 +748,7 @@ public class FindSpots {
 		int previousSpot = currentSpot;
 		currentSpot += 1;
 		
-		System.out.println("Steps left: "+stepsLeft+" Current Spot: "+currentSpot +" previous spot: "+previousSpot);
+		//System.out.println("Steps left: "+stepsLeft+" Current Spot: "+currentSpot +" previous spot: "+previousSpot);
 		
 		if(currentSpot==23){
 			checkForward(stepsLeft-1, currentSpot, otherPlayersSpot);
