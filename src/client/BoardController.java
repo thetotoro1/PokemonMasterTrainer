@@ -381,12 +381,12 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 	static private Spot[] spots = new Spot[76];
 	
 
-	 DataOutputStream toServer = null;
-	 DataInputStream fromServer = null;
+	DataOutputStream toServer = null;
+	DataInputStream fromServer = null;
 
+	Player player1, player2;
 
-
-	
+	static int player;
 	
 
 	@Override
@@ -472,10 +472,13 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		
 
 		
-	
+		player1 = new Player(1);
+		player2 = new Player(2);
 		
+		anchorPane.getChildren().addAll(player1.anchorPane,player2.anchorPane);
 		
-		
+		setSpot(0,1);
+		setSpot(0,2);
 		
 		//this fills in every spot
 //		for(int index=0, i=1;index<76;index++,i++){
@@ -539,11 +542,7 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 
 		
 	}
-	
-	
-	static public void sayHi() {
-		System.out.println("Hello");
-	}
+
 
 	static public double getSpotX(int spotNumber) {
 		return spots[spotNumber].getSpotCircle().getLayoutX();
@@ -558,9 +557,36 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		
 	}
 	
-
 	static public double getCitySpotY(int spotNumber) {
 		return spots[spotNumber].getRectangle().getLayoutY()+10;
+	}
+	
+	private void setSpot(int spotNumber, int playerNumber){
+		//if a city spot
+		if(spots[spotNumber].getAction()==citySpot||spots[spotNumber].getAction()==pokecenter||spots[spotNumber].getAction()==none){
+			if(playerNumber==1){
+				player1.currentSpot = spotNumber;
+				player1.anchorPane.setLayoutX(spots[spotNumber].getRectangle().getLayoutX()+23);
+				player1.anchorPane.setLayoutY(spots[spotNumber].getRectangle().getLayoutY()+10);
+			}
+			else{
+				player2.currentSpot = spotNumber;
+				player2.anchorPane.setLayoutX(spots[spotNumber].getRectangle().getLayoutX()+78);
+				player2.anchorPane.setLayoutY(spots[spotNumber].getRectangle().getLayoutY()+10);
+			}
+		}
+		else{
+			if(playerNumber==1){
+				player1.currentSpot = spotNumber;
+				player1.anchorPane.setLayoutX(spots[spotNumber].getSpotCircle().getLayoutX()-17);
+				player1.anchorPane.setLayoutY(spots[spotNumber].getSpotCircle().getLayoutY()-16);
+			}
+			else{
+				player2.currentSpot = spotNumber;
+				player2.anchorPane.setLayoutX(spots[spotNumber].getSpotCircle().getLayoutX()+2);
+				player2.anchorPane.setLayoutY(spots[spotNumber].getSpotCircle().getLayoutY()-16);
+			}
+		}
 		
 	}
 	

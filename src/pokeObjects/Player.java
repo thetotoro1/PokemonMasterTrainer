@@ -14,6 +14,7 @@ import javafx.scene.shape.Rectangle;
 public class Player{
 
 	private int playerNumber;
+	public int currentSpot;
 	private ArrayList <card> cards;
 	public AnchorPane anchorPane = new AnchorPane();
 	
@@ -21,8 +22,11 @@ public class Player{
 	public Player(int playerNum) {
 		
 		this.playerNumber = playerNum;
+		currentSpot = 0;
 		cards = new ArrayList<card>();
 
+		
+		//set player image
 		FileInputStream input;
 		ImageView imageView = new ImageView();
 		if(this.playerNumber==1){
