@@ -415,7 +415,7 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 	DataInputStream fromServer = null;
 
 	Player player1, player2;
-	Player[] players;
+	static Player[] players;
 
 	static int player;
 
@@ -544,7 +544,7 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		//this fills in every spot
 		for(int index=0, i=1;index<76;index++,i++){
 			
-			PokeChip pokeChip = new PokeChip(PINK, i);
+			PokeChip pokeChip = new PokeChip(i);
 
 			
 
@@ -767,7 +767,33 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		}
 	}
 
-
+	public static void receiveItem(int itemType){
+		
+		//add indicating integer to itemCard list
+		players[player].itemCards.add(itemType);
+		
+		//TO-DO create and add card to card display
+		
+	}
+	
+	public void receivePokemon(int dexNumber, int spotNumber){
+		addPokemon(dexNumber,spotNumber);
+	}
+	
+	public void addPokemon(int dexNumber, int spotNumber){
+		PokeChip pokemon = new PokeChip(dexNumber);
+		spots[spotNumber].pokemon = pokemon;	
+		pokemon.anchorPane.setLayoutX(spots[spotNumber].getPokeCircle().getLayoutX()-40);
+		pokemon.anchorPane.setLayoutY(spots[spotNumber].getPokeCircle().getLayoutY()-40);
+		anchorPane.getChildren().add(pokemon.anchorPane);
+	}
+	
+	public void removePokemon(int spotNumber){	
+		anchorPane.getChildren().remove(spots[spotNumber].pokemon.anchorPane);
+		spots[spotNumber].pokemon = null;
+	}
+	
+	
 }
 
 

@@ -12,7 +12,7 @@ public class Spot implements SpotConstants{
 	private Circle pokeCircle;
 	private Rectangle rectangle;
 	private int color;
-	private PokeChip pokemon;
+	public PokeChip pokemon;
 	private Boolean spotOpen = false;
 	
 //	public Spot(int action, Circle spotCircle){
@@ -84,6 +84,8 @@ public class Spot implements SpotConstants{
 		}
 	}
 
+
+
 	public void highlightOff() {
 		this.spotOpen = false;
 		if(this.action==pokecenter||this.action==none||this.action==citySpot||this.action==finalSpot){
@@ -97,8 +99,17 @@ public class Spot implements SpotConstants{
 		}
 	}
 
+	public PokeChip getPokemon() {
+		return pokemon;
+	}
 
-	
+	public void setPokemon(PokeChip pokemon) {
+		this.pokemon = pokemon;
+	}
+
+	public void removePokemon() {
+		this.pokemon = null;		
+	}
 	
 	
 	

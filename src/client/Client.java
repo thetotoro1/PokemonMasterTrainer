@@ -3,6 +3,7 @@ package client;
 import java.io.IOException;
 import java.util.ArrayList;
 
+
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -15,25 +16,58 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Polygon;
 
 
-public class Client extends Application {
+public class Client extends Application implements GameConstants{
 	
-	public int PLAYERCOUNT=0;
-	
+	private int PLAYERCOUNT=0;
+	private BoardController controller;
 	
 	@Override
 	public void start(Stage primaryStage) {
 		
-		
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Board.fxml"));
+	    Parent root = new AnchorPane();
+	    
 		try {
-			
-			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Board.fxml"));
-			AnchorPane root = fxmlLoader.load();
-			Scene scene = new Scene(root);
-			primaryStage.setScene(scene);
-			primaryStage.show();
-		} catch(Exception e) {
+			root = (Parent)fxmlLoader.load();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+	    controller = fxmlLoader.<BoardController>getController();
+
+	    Scene scene = new Scene(root);
+	    primaryStage.setTitle("Pokemon Master Trainer");
+	    primaryStage.setScene(scene);
+	    primaryStage.show();
+	    
+	    //test receiving item from server
+	    controller.receiveItem(POTION);
+	    
+	    //test receiving pokemon location from server
+	    controller.addPokemon(4, 3);
+	    
+	    //test removing pokemon location from server
+	    controller.removePokemon(3);
+
+	    //TO-DO Connect to the server
+	    //connectToServer();
+	    
+		
+		
+		
+		
+//		
+//		try {
+//			
+//			FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Board.fxml"));
+//			AnchorPane root = fxmlLoader.load();
+//			Scene scene = new Scene(root);
+//			primaryStage.setScene(scene);
+//			primaryStage.show();
+//		} catch(Exception e) {
+//			e.printStackTrace();
+//		}
 		
 		
 		

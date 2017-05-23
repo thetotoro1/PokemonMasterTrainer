@@ -19,7 +19,7 @@ import javafx.scene.text.TextAlignment;
 
 public class PokeChip implements PokeChipConstants{
 
-	public int color;
+	public String color;
 	public int dexNumber;
 	public String name;
 	public int attackStrength;
@@ -31,10 +31,11 @@ public class PokeChip implements PokeChipConstants{
 	private StackPane nameStack;
 	private Text powerPointText;
 	
-	public PokeChip(int color, int dexNumber) {
-		this.color = color;
+	public PokeChip(int dexNumber) {
 		this.dexNumber = dexNumber;
 		this.name = "";
+		
+		//get image
 		this.url = "http://assets.pokemon.com/assets/cms2/img/pokedex/full/";
 		
 		if(dexNumber>=100){
@@ -54,13 +55,15 @@ public class PokeChip implements PokeChipConstants{
 
 		imageView = new ImageView(image);
 		
+		//get info about pokemon
 		try {
 			String pokemonInformation = Files.readAllLines(Paths.get("pokemonList.txt")).get(dexNumber);
 			String[] pokemonInfoArr = pokemonInformation.split("\\s+");
 			this.name = pokemonInfoArr[0];
 			this.powerPoints = Integer.parseInt(pokemonInfoArr[1]);
 			this.attackStrength = Integer.parseInt(pokemonInfoArr[2]);
-			System.out.println("PP: "+pokemonInfoArr[1]+" AP: "+pokemonInfoArr[2]);
+			this.color = pokemonInfoArr[3];
+			System.out.println("PP: "+pokemonInfoArr[1]+" AP: "+pokemonInfoArr[2] +" Color "+pokemonInfoArr[3]);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

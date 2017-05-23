@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.SocketImpl;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -22,6 +24,12 @@ public class Server extends Application {
 	ServerController controller;
 	ServerSocket serverSocket;
 	
+	int[] starterPokemon = new int[6]; 
+	int[] pinkPokemon = new int[35];
+	int[] greenPokemon = new int[41];
+	int[] bluePokemon = new int[38];
+	int[] redPokemon = new int[26];
+	int[] legendary = new int[5]; 
 	
 	@Override
 	public void start(Stage primaryStage) {
@@ -38,6 +46,53 @@ public class Server extends Application {
 			e.printStackTrace();
 		}
 			
+		
+		//setup card stacks
+		int[] itemCards ={0,0,0,0,0,0,1,1,1,1,1,1,2,2,2,2,2,2,3,3,3,3,4,4,4,4,6,6,6,7,7,7,8,8,8,8,9,9,9,9,9,10,10,10,10,10,11,11,11,11};
+		
+		int[] eventCards ={0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,2,2,3,3,3,3,3,3,3,3,3,3,4,4,4,4,4,4,4,4,4,4,5,5,5,5,5,5,5,5,5,6,6,6,6,6,7,7,7};
+		
+		//set up pokemon checklist
+		
+		int spIndex = 0, pIndex = 0, gIndex = 0, bIndex = 0, rIndex = 0, lIndex = 0;
+		
+		for (int i = 1; i <= 151; i++) {
+			String pokemonInformation = "";
+			try {
+				pokemonInformation = Files.readAllLines(Paths.get("pokemonList.txt")).get(i);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			String[] pokemonInfoArr = pokemonInformation.split("\\s+");
+			//System.out.println(""+pokemonInfoArr[3]);
+			switch (pokemonInfoArr[3]) {
+			case "Starter":
+				starterPokemon[spIndex++] = i;
+				break;
+			case "Pink":
+				pinkPokemon[pIndex++] = i;
+				break;
+			case "Green":
+				greenPokemon[gIndex++] = i;
+				break;
+			case "Blue":
+				bluePokemon[bIndex++] = i;
+				break;
+			case "Red":
+				redPokemon[rIndex++] = i;
+				break;
+			case "Legendary":
+				legendary[lIndex++] =i;		
+				break;
+	
+			default:
+				break;
+			}
+			
+		}
+		
 		new Thread( () -> {
 		      try {
 		        // Create a server socket

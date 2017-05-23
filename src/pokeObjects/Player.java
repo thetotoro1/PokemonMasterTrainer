@@ -15,7 +15,7 @@ public class Player{
 
 	private int playerNumber;
 	public int currentSpot;
-	private ArrayList <card> cards;
+	public ArrayList <Integer> itemCards;
 	public AnchorPane anchorPane = new AnchorPane();
 	
 	
@@ -23,7 +23,7 @@ public class Player{
 		
 		this.playerNumber = playerNum;
 		currentSpot = 0;
-		cards = new ArrayList<card>();
+		itemCards = new ArrayList<Integer>();
 
 		
 		//set player image
