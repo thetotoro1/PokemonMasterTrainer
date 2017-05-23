@@ -13,6 +13,8 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
 import pokeObjects.Player;
@@ -373,11 +375,38 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 	@FXML
 	private Circle legendary4;
 	
-	
+	//the main anchorPane
 	@FXML
 	private AnchorPane anchorPane;
 	
-
+	@FXML
+	private Pane diePane;
+	
+	@FXML
+	private Rectangle dieRectangle;
+	
+	@FXML
+	private Circle die1;
+	
+	@FXML
+	private Circle die2;
+	
+	@FXML
+	private Circle die3;
+	
+	@FXML
+	private Circle die4;
+	
+	@FXML
+	private Circle die5;
+	
+	@FXML
+	private Circle die6;
+	
+	@FXML
+	private Circle die7;
+	
+	
 	static private Spot[] spots = new Spot[76];
 	
 
@@ -387,7 +416,8 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 	Player player1, player2;
 
 	static int player;
-	
+
+	private Boolean pastCerulean = false;
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -470,15 +500,29 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		spots[74] = new Spot(catchPokemon,spot74, pokeSpot74,blue);
 		spots[75] = new Spot(drawCards,spot75,blue);
 		
-
-		
+		//create player objects
 		player1 = new Player(1);
 		player2 = new Player(2);
 		
+		//TO-DO this should be done by opening socket connections. server sends which player and this is set
+		player = 1;
+		
+		//add players to board
 		anchorPane.getChildren().addAll(player1.anchorPane,player2.anchorPane);
 		
-		setSpot(0,1);
+		//set player spots to starting town
+		setSpot(26,1);
 		setSpot(0,2);
+		
+		//set die
+		setDie(1);
+		
+		//TO-DO this is set through when you accept moving past cerulean on the board.
+		pastCerulean= true;
+		
+		//test spots highlighter
+		highlightOpenSpots(6);
+		
 		
 		//this fills in every spot
 //		for(int index=0, i=1;index<76;index++,i++){
@@ -590,4 +634,92 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		
 	}
 	
+	private void setDie(int numberRolled){
+		
+		diePane.setVisible(true);
+		
+		die1.setVisible(false);
+		die2.setVisible(false);
+		die3.setVisible(false);
+		die4.setVisible(false);
+		die5.setVisible(false);
+		die6.setVisible(false);
+		die7.setVisible(false);
+		
+		switch (numberRolled) {
+		case 1:
+			die7.setVisible(true);
+			break;
+		case 2:
+			die3.setVisible(true);
+			die4.setVisible(true);
+			break;
+		case 3:
+			die3.setVisible(true);
+			die4.setVisible(true);
+			die7.setVisible(true);
+			break;
+		case 4:
+			die1.setVisible(true);
+			die3.setVisible(true);
+			die4.setVisible(true);
+			die6.setVisible(true);
+			break;
+		case 5:
+			die1.setVisible(true);
+			die3.setVisible(true);
+			die4.setVisible(true);
+			die6.setVisible(true);
+			die7.setVisible(true);
+			break;
+		case 6:
+			die1.setVisible(true);
+			die2.setVisible(true);
+			die3.setVisible(true);
+			die4.setVisible(true);
+			die5.setVisible(true);
+			die6.setVisible(true);
+			break;
+
+		default:
+			break;
+		}
+		
+		
+	}
+
+	private void highlightOpenSpots(int numberRolled){	
+		
+		int[] openSpots;
+		
+		if(player==1){
+			
+			if(pastCerulean){
+			openSpots = FindSpots.checkSpots(numberRolled, player1.currentSpot, player2.currentSpot, true);
+			}
+			else{
+			openSpots = FindSpots.checkSpots(numberRolled, player1.currentSpot, player2.currentSpot, false);
+			}
+		}
+		else{
+			if(pastCerulean){
+				openSpots = FindSpots.checkSpots(numberRolled, player2.currentSpot, player1.currentSpot, true);
+			}
+			else{
+				openSpots = FindSpots.checkSpots(numberRolled, player2.currentSpot, player1.currentSpot, false);
+			}
+		}
+		
+		for (int i = 0; i < openSpots.length; i++) {
+			spots[openSpots[i]].highlight();
+		}
+		
+		
+		
+	}
+
+
+
+
+
 }
