@@ -2,6 +2,7 @@ package client;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.Socket;
@@ -9,15 +10,29 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import javafx.animation.Animation;
+import javafx.animation.Transition;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.TilePane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.CycleMethod;
+import javafx.scene.paint.LinearGradient;
+import javafx.scene.paint.Stop;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
+import javafx.util.Duration;
 import pokeObjects.Player;
 import pokeObjects.Spot;
 import pokeObjects.SpotConstants;
@@ -407,6 +422,17 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 	@FXML
 	private Circle die7;
 	
+	@FXML
+	private Pane beltPane;
+	
+//	@FXML
+//	private GridPane beltGrid;
+//	
+//	@FXML
+//	private ScrollPane beltScrollPane;
+	
+	@FXML
+	private TilePane beltTilePane;
 	
 	static private Spot[] spots = new Spot[76];
 	
@@ -519,6 +545,10 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		//add players to board
 		anchorPane.getChildren().addAll(player1.anchorPane,player2.anchorPane);
 		
+		//set beltpane spot
+		beltPane.setLayoutX(0);
+		beltPane.setLayoutY(450);
+		
 		//set player spots to starting town
 		setSpot(0,1);
 		setSpot(0,2);
@@ -535,7 +565,62 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		//TO-DO this is set after a roll
 		isMoving=true;
 
-	
+		
+		PokeChip myPokemon[] = new PokeChip[151];
+		
+//		beltScrollPane.setFitToHeight(true);
+		for (int i = 0, j = 0; i <26; i++) {
+			
+		
+		myPokemon[i] = new PokeChip(i+1);
+		
+		beltTilePane.getChildren().add(myPokemon[i].anchorPane);
+		
+		
+//		beltGrid.add(beltPokemon.anchorPane, i%4, j);
+		if(i%4==3){
+			j++;
+		}
+		}
+		
+		
+
+		
+//		//create the pokemon belt
+//		Pane beltPane = new Pane();
+//		
+//		
+//		//belt rectangle
+//		Rectangle beltRectangle = new Rectangle(500, 350);
+//		beltRectangle.setStyle("-fx-arc-height: 20;"
+//				+ "-fx-arc-width: 20;");
+//		Stop[] stops = new Stop[] { new Stop(0, Color.GREY), new Stop(.8, Color.WHITE)};
+//		LinearGradient lg1 = new LinearGradient(0, 0, 0, 1, true, CycleMethod.NO_CYCLE, stops);
+//		//beltRectangle.setFill(lg1);
+//		
+//		//belt image
+//		FileInputStream input;
+//		ImageView beltImage = new ImageView();
+//		try {
+//			input = new FileInputStream("resources/pokeballLight.png");
+//			Image image = new Image(input,300,300,false,true);
+//			beltImage = new ImageView(image);
+//		} catch (FileNotFoundException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+		
+		
+		
+//		<LinearGradient endX="1.0" endY="1.0" startX="1.0" startY="0.04761904761904763">
+//        <stops>
+//           <Stop color="#686868" />
+//           <Stop color="WHITE" offset="1.0" />
+//        </stops>
+//     </LinearGradient>
+		
+//		beltPane.getChildren().addAll(beltRectangle,beltImage);
+//		anchorPane.getChildren().add(beltPane);
 		
 	}
 
@@ -791,6 +876,19 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 	public void removePokemon(int spotNumber){	
 		anchorPane.getChildren().remove(spots[spotNumber].pokemon.anchorPane);
 		spots[spotNumber].pokemon = null;
+	}
+	
+	@FXML
+	public void showMyPokemon(){
+		System.out.println("showing pokemon");
+		beltPane.toFront();
+		beltPane.setLayoutY(500);
+	}
+	
+	@FXML
+	public void hideMyPokemon(){
+		beltPane.toBack();
+		beltPane.setLayoutY(1000);
 	}
 	
 	

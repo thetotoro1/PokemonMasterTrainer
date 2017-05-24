@@ -113,7 +113,6 @@ public class PokeChip implements PokeChipConstants{
 				nameStack.setVisible(true);	
 				ppStack.setVisible(true);
 				apStack.setVisible(true);
-				anchorPane.toFront();
 			}
 			
 			
@@ -127,8 +126,6 @@ public class PokeChip implements PokeChipConstants{
 				nameStack.setVisible(false);	
 				ppStack.setVisible(false);
 				apStack.setVisible(false);
-
-
 			}
 			
 			
