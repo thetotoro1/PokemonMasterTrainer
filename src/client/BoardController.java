@@ -425,12 +425,6 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 	@FXML
 	private Pane beltPane;
 	
-//	@FXML
-//	private GridPane beltGrid;
-//	
-//	@FXML
-//	private ScrollPane beltScrollPane;
-	
 	@FXML
 	private TilePane beltTilePane;
 	
@@ -450,94 +444,98 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 	private boolean isMoving;
 
 	private int currentSpot = 0;
+	
+	private ArrayList <PokeChip> myPokemon;
+	private ArrayList <PokeChip> theirPokemon;
+
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		System.out.println("Board initialized");	
+		//System.out.println("Board initialized");	
 		
 		spots[0] = new Spot(none, spot0);
 		spots[1] = new Spot(catchPokemon,spot1,pokeSpot1,pink);
-		spots[2] = new Spot(drawCards,spot2,pink);
+		spots[2] = new Spot(eventCard,spot2,pink);
 		spots[3] = new Spot(catchPokemon,spot3,pokeSpot3,pink);
 		spots[4] = new Spot(citySpot,spot4);
-		spots[5] = new Spot(drawCards,spot5,pink);
+		spots[5] = new Spot(eventCard,spot5,pink);
 		spots[6] = new Spot(catchPokemon,spot6, pokeSpot6,pink);
 		spots[7] = new Spot(catchPokemon,spot7, pokeSpot7,pink);
-		spots[8] = new Spot(drawCards,spot8,pink);
+		spots[8] = new Spot(eventCard,spot8,pink);
 		spots[9] = new Spot(catchPokemon,spot9, pokeSpot9,pink);
 		spots[10] = new Spot(catchPokemon,spot10, pokeSpot10,pink);
 		spots[11] = new Spot(catchPokemon,spot11, pokeSpot11,pink);
 		spots[12] = new Spot(citySpot,spot12);
-		spots[13] = new Spot(drawCards,spot13,pink);
+		spots[13] = new Spot(eventCard,spot13,pink);
 		spots[14] = new Spot(catchPokemon,spot14, pokeSpot14,pink);
-		spots[15] = new Spot(drawCards,spot15,pink);
+		spots[15] = new Spot(eventCard,spot15,pink);
 		spots[16] = new Spot(catchPokemon,spot16, pokeSpot16,pink);
 		spots[17] = new Spot(catchPokemon,spot17, pokeSpot17,pink);
 		spots[18] = new Spot(catchPokemon,spot18, pokeSpot18,green);
-		spots[19] = new Spot(drawCards,spot19,green);
+		spots[19] = new Spot(eventCard,spot19,green);
 		spots[20] = new Spot(catchPokemon,spot20, pokeSpot20,green);
 		spots[21] = new Spot(catchPokemon,spot21, pokeSpot21,green);
-		spots[22] = new Spot(drawCards,spot22,green);
+		spots[22] = new Spot(eventCard,spot22,green);
 		spots[23] = new Spot(pokecenter,spot23);
 		spots[24] = new Spot(catchPokemon,spot24, pokeSpot24,green);
-		spots[25] = new Spot(drawCards,spot25,green);
+		spots[25] = new Spot(eventCard,spot25,green);
 		spots[26] = new Spot(catchPokemon,spot26, pokeSpot26,green);
 		spots[27] = new Spot(catchPokemon,spot27, pokeSpot27,green);
-		spots[28] = new Spot(drawCards,spot28,green);
+		spots[28] = new Spot(eventCard,spot28,green);
 		spots[29] = new Spot(catchPokemon,spot29, pokeSpot29,green);
-		spots[30] = new Spot(drawCards,spot30,green);
+		spots[30] = new Spot(eventCard,spot30,green);
 		spots[31] = new Spot(citySpot,spot31);
-		spots[32] = new Spot(drawCards,spot32,green);
+		spots[32] = new Spot(eventCard,spot32,green);
 		spots[33] = new Spot(catchPokemon,spot33, pokeSpot33,green);
-		spots[34] = new Spot(drawCards,spot34,green);
+		spots[34] = new Spot(eventCard,spot34,green);
 		spots[35] = new Spot(citySpot,spot35);
 		spots[36] = new Spot(catchPokemon,spot36, pokeSpot36,green);
-		spots[37] = new Spot(drawCards,spot37,green);
+		spots[37] = new Spot(eventCard,spot37,green);
 		spots[38] = new Spot(catchPokemon,spot38, pokeSpot38,green);
-		spots[39] = new Spot(drawCards,spot39,green);
-		spots[40] = new Spot(drawCards,spot40,blue);
+		spots[39] = new Spot(eventCard,spot39,green);
+		spots[40] = new Spot(eventCard,spot40,blue);
 		spots[41] = new Spot(catchPokemon,spot41, pokeSpot41,blue);
 		spots[42] = new Spot(pokecenter,spot42);
-		spots[43] = new Spot(drawCards,spot43,blue);
-		spots[44] = new Spot(drawCards,spot44,blue);
+		spots[43] = new Spot(eventCard,spot43,blue);
+		spots[44] = new Spot(eventCard,spot44,blue);
 		spots[45] = new Spot(catchPokemon,spot45, pokeSpot45,blue);
-		spots[46] = new Spot(drawCards,spot46,blue);
+		spots[46] = new Spot(eventCard,spot46,blue);
 		spots[47] = new Spot(catchPokemon,spot47, pokeSpot47,blue);
-		spots[48] = new Spot(drawCards,spot48,blue);
+		spots[48] = new Spot(eventCard,spot48,blue);
 		spots[49] = new Spot(catchPokemon,spot49, pokeSpot49,blue);
 		spots[50] = new Spot(catchPokemon,spot50, pokeSpot50,blue);
-		spots[51] = new Spot(drawCards,spot51,blue);
+		spots[51] = new Spot(eventCard,spot51,blue);
 		spots[52] = new Spot(catchPokemon,spot52, pokeSpot52,blue);
 		spots[53] = new Spot(catchPokemon,spot53, pokeSpot53,blue);
-		spots[54] = new Spot(drawCards,spot54,blue);
+		spots[54] = new Spot(eventCard,spot54,blue);
 		spots[55] = new Spot(catchPokemon,spot55, pokeSpot55,blue);
-		spots[56] = new Spot(drawCards,spot56,blue);
-		spots[57] = new Spot(drawCards,spot57,blue);
+		spots[56] = new Spot(eventCard,spot56,blue);
+		spots[57] = new Spot(eventCard,spot57,blue);
 		spots[58] = new Spot(citySpot,spot58);
-		spots[59] = new Spot(drawCards,spot59,red);
+		spots[59] = new Spot(eventCard,spot59,red);
 		spots[60] = new Spot(catchPokemon,spot60, pokeSpot60,red);
-		spots[61] = new Spot(drawCards,spot61,red);
+		spots[61] = new Spot(eventCard,spot61,red);
 		spots[62] = new Spot(catchPokemon,spot62, pokeSpot62,red);
-		spots[63] = new Spot(drawCards,spot63,red);
+		spots[63] = new Spot(eventCard,spot63,red);
 		spots[64] = new Spot(catchPokemon,spot64, pokeSpot64,red);
 		spots[65] = new Spot(catchPokemon,spot65, pokeSpot65,red);
 		spots[66] = new Spot(catchPokemon,spot66, pokeSpot66,red);
 		spots[67] = new Spot(citySpot,spot67);
 		spots[68] = new Spot(catchPokemon,spot68, pokeSpot68,red);
 		spots[69] = new Spot(catchPokemon,spot69, pokeSpot69,red);
-		spots[70] = new Spot(drawCards,spot70,red);
-		spots[71] = new Spot(drawCards,spot71,red);
-		spots[72] = new Spot(drawCards,spot72,red);
+		spots[70] = new Spot(eventCard,spot70,red);
+		spots[71] = new Spot(eventCard,spot71,red);
+		spots[72] = new Spot(eventCard,spot72,red);
 		spots[73] = new Spot(finalSpot,spot73);
 		spots[74] = new Spot(catchPokemon,spot74, pokeSpot74,blue);
-		spots[75] = new Spot(drawCards,spot75,blue);
+		spots[75] = new Spot(eventCard,spot75,blue);
 		
 		//create player objects
 		player1 = new Player(1);
 		player2 = new Player(2);
-		players = new Player[2];
-		players[PLAYER1] = player1;
-		players[PLAYER2] = player2;
+		players = new Player[3];
+		players[1] = player1;
+		players[2] = player2;
 		
 		//TO-DO this should be done by opening socket connections. server sends which player and this is set
 		player = 1;
@@ -547,11 +545,11 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		
 		//set beltpane spot
 		beltPane.setLayoutX(0);
-		beltPane.setLayoutY(450);
+		//beltPane.setLayoutY(450);
 		
 		//set player spots to starting town
 		setSpot(0,1);
-		setSpot(0,2);
+		setSpot(12,2);
 		
 		//set die
 		setDie(1);
@@ -566,22 +564,22 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		isMoving=true;
 
 		
-		PokeChip myPokemon[] = new PokeChip[151];
 		
-//		beltScrollPane.setFitToHeight(true);
-		for (int i = 0, j = 0; i <26; i++) {
-			
-		
-		myPokemon[i] = new PokeChip(i+1);
-		
-		beltTilePane.getChildren().add(myPokemon[i].anchorPane);
-		
-		
-//		beltGrid.add(beltPokemon.anchorPane, i%4, j);
-		if(i%4==3){
-			j++;
-		}
-		}
+		//test pokebelt
+//		PokeChip myPokemon[] = new PokeChip[151];
+//		
+//		for (int i = 0, j = 0; i <100; i++) {
+//			
+//		
+//		myPokemon[i] = new PokeChip(i+1);
+//		
+//		beltTilePane.getChildren().add(myPokemon[i].anchorPane);
+//		
+//		
+//		if(i%4==3){
+//			j++;
+//		}
+//		}
 		
 		
 
@@ -650,7 +648,7 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 			anchorPane.getChildren().add(player2.anchorPane);
 			
 		}
-		else if(spots[index].getAction()==drawCards){
+		else if(spots[index].getAction()==eventCard){
 			
 			Player player1 = new Player(1);
 			player1.anchorPane.setLayoutX(spots[index].getSpotCircle().getLayoutX()-17);
@@ -681,14 +679,14 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 	private void handleClicks(MouseEvent clickedSpot){
 		
 		String areaClicked = clickedSpot.getTarget().toString();
-		System.out.println("spot clicked " + areaClicked);
+		//System.out.println("spot clicked " + areaClicked);
 		if(isMoving){
 			
 			areaClicked = areaClicked.replaceAll("[^\\d .]", "");
-			System.out.println("area: " + areaClicked);
+			//System.out.println("area: " + areaClicked);
 			String[] split = areaClicked.split("\\ ");
 			int spotNumber = Integer.parseInt(split[0]);
-			System.out.println("spot number: " + spotNumber);
+			//System.out.println("spot number: " + spotNumber);
 			
 			//if the spot is open for movement
 			if(spots[spotNumber].getSpotOpen()==true){
@@ -702,8 +700,9 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 					pastCerulean = true;
 				}
 				
+				checkSpotAction(spotNumber);
 				//to test movement
-				highlightSpotsOn(6);
+				highlightSpotsOn(1);
 			}
 
 			
@@ -711,27 +710,60 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		
 	}
 
+	private void checkSpotAction(int spotNumber) {
+		if(spots[spotNumber].getAction()==catchPokemon){
+			System.out.println("Landed on a catch pokemon spot");
+			if(spots[spotNumber].pokemon==null){
+				System.out.println("spot empty filling with pokemon");
 
+				//send catchpokemon action to server with color.
+				
+				//receive which pokemon from server. add pokemon to board
+				
+			}
+			
+			//try and catch pokemon
+			
+		}
+		else if(spots[spotNumber].getAction()==eventCard){
+			System.out.println("Landed on a event card spot");
 
+			//send eventCard action to server
+			
+			//receive which type of card back from server twice. add cards to player's hand
+			
+			
+		}
+		else if(spots[spotNumber].getAction()==pokecenter){
+			System.out.println("Landed on a pokecenter spot");
 
-	static public double getSpotX(int spotNumber) {
-		return spots[spotNumber].getSpotCircle().getLayoutX();
-	}
-	
-	static public double getSpotY(int spotNumber) {
-		return spots[spotNumber].getSpotCircle().getLayoutY()-15;
+			//start little game to heal pokemon
+			
+		}
+		else if(spots[spotNumber].getAction()==citySpot){
+			System.out.println("Landed on a city draw 2 spot");
+
+			//send drawCards action to server
+			
+			//receive which type of card back from server twice. add cards to player's hand
+		}
+		else if(spots[spotNumber].getAction()==finalSpot){
+			System.out.println("Landed on the final spot");
+
+			//send eventCard action to server
+			
+			//receive which type of card back from server twice. add cards to player's hand
+
+			//check to see if player has enough points to enter. if so set flag for indigo warp
+		}
+		else{
+			
+		}
 	}
 
-	static public double getCitySpotX(int spotNumber) {
-		return spots[spotNumber].getRectangle().getLayoutX()+50;
-		
-	}
-	
-	static public double getCitySpotY(int spotNumber) {
-		return spots[spotNumber].getRectangle().getLayoutY()+10;
-	}
-	
 	private void setSpot(int spotNumber, int playerNumber){
+		//System.out.println("Spot set to: "+spotNumber +" for player "+playerNumber);
+
 		//if a city spot
 		if(spots[spotNumber].getAction()==citySpot||spots[spotNumber].getAction()==pokecenter||spots[spotNumber].getAction()==none||spots[spotNumber].getAction()==finalSpot){
 			if(playerNumber==1){
@@ -817,7 +849,7 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 	private void highlightSpotsOn(int numberRolled){	
 		
 		int[] openSpots;
-		
+		//System.out.println("Number rolled "+numberRolled+" p1 spot: "+player1.currentSpot +" p2 spot: "+player2.currentSpot);
 		if(player==1){
 			
 			if(pastCerulean){
@@ -837,6 +869,7 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		}
 		
 		for (int i = 0; i < openSpots.length; i++) {
+			//System.out.println("open spot: " + openSpots[i]);
 			if(players[player].currentSpot != openSpots[i]){
 			spots[openSpots[i]].highlight();
 			}
@@ -860,11 +893,7 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		//TO-DO create and add card to card display
 		
 	}
-	
-	public void receivePokemon(int dexNumber, int spotNumber){
-		addPokemon(dexNumber,spotNumber);
-	}
-	
+		
 	public void addPokemon(int dexNumber, int spotNumber){
 		PokeChip pokemon = new PokeChip(dexNumber);
 		spots[spotNumber].pokemon = pokemon;	

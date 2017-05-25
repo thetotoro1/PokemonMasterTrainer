@@ -242,6 +242,26 @@
       <Circle fx:id="spot55" fill="#003790" layoutX="863.0" layoutY="691.0" onMouseClicked="#handleClicks" radius="17.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
       <Circle fx:id="spot56" fill="#003790" layoutX="787.0" layoutY="698.0" onMouseClicked="#handleClicks" radius="17.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
       <Circle fx:id="spot57" fill="#003790" layoutX="722.0" layoutY="691.0" onMouseClicked="#handleClicks" radius="17.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Pane fx:id="catchPane" layoutX="552.0" layoutY="870.0" prefHeight="500.0" prefWidth="500.0">
+         <children>
+            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="500.0" stroke="BLACK" strokeType="INSIDE" width="500.0" />
+            <ImageView fx:id="greatball" fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="336.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../Resources/Great%20Ball.png" />
+               </image>
+            </ImageView>
+            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="175.0" layoutY="336.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../Resources/Ultra%20Ball.png" />
+               </image>
+            </ImageView>
+            <ImageView fx:id="greatball1" fitHeight="150.0" fitWidth="200.0" layoutX="164.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../../Resources/Poke%20Ball.png" />
+               </image>
+            </ImageView>
+         </children>
+      </Pane>
       <Circle fx:id="spot68" fill="#d20f2d" layoutX="633.0" layoutY="741.0" onMouseClicked="#handleClicks" radius="17.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
       <Circle fx:id="spot69" fill="#d20f2d" layoutX="563.0" layoutY="758.0" onMouseClicked="#handleClicks" radius="17.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
       <Circle fx:id="spot70" fill="#d20f2d" layoutX="493.0" layoutY="758.0" onMouseClicked="#handleClicks" radius="17.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
@@ -272,9 +292,9 @@
                   <Image url="@../../Resources/pokeballLight.png" />
                </image>
             </ImageView>
-            <ScrollPane fx:id="beltScrollPane" hbarPolicy="NEVER" prefHeight="350.0" prefWidth="500.0" stylesheets="@client.css" vbarPolicy="NEVER">
+            <ScrollPane fx:id="beltScrollPane" hbarPolicy="NEVER" prefHeight="310.0" prefWidth="500.0" stylesheets="@client.css" vbarPolicy="NEVER">
                <content>
-                  <TilePane fx:id="beltTilePane" maxWidth="-Infinity" minWidth="-Infinity" prefColumns="4" prefHeight="350.0" prefRows="4" prefTileWidth="120.0" prefWidth="500.0" scaleShape="false">
+                  <TilePane fx:id="beltTilePane" maxWidth="-Infinity" minWidth="-Infinity" prefColumns="4" prefHeight="310.0" prefRows="4" prefTileWidth="120.0" prefWidth="500.0" scaleShape="false">
                      <padding>
                         <Insets bottom="15.0" left="15.0" top="15.0" />
                      </padding></TilePane>

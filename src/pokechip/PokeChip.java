@@ -63,7 +63,7 @@ public class PokeChip implements PokeChipConstants{
 			this.powerPoints = Integer.parseInt(pokemonInfoArr[1]);
 			this.attackStrength = Integer.parseInt(pokemonInfoArr[2]);
 			this.color = pokemonInfoArr[3];
-			System.out.println("PP: "+pokemonInfoArr[1]+" AP: "+pokemonInfoArr[2] +" Color "+pokemonInfoArr[3]);
+			//System.out.println("PP: "+pokemonInfoArr[1]+" AP: "+pokemonInfoArr[2] +" Color "+pokemonInfoArr[3]);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

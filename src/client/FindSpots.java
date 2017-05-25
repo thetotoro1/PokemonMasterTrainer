@@ -17,7 +17,7 @@ public class FindSpots {
 		
 		//if special number do special number needs
 		
-		System.out.println("Number Rolled: "+numberRolled+" Current Spot "+currentSpot);
+		//System.out.println("Number Rolled: "+numberRolled+" Current Spot "+currentSpot +" other players spot: "+otherPlayersSpot);
 		
 		
 		if(pastCerulean){
@@ -136,11 +136,14 @@ public class FindSpots {
 		//System.out.println("Steps left: "+stepsLeft+" Current Spot: "+currentSpot +" previous spot: "+previousSpot);
 
 		if(currentSpot==otherPlayersSpot){
+			System.out.println("passed by otherplayer");
 			spotList.add(currentSpot);
 		}
 		
 		
-		
+		if(stepsLeft==0&&currentSpot==otherPlayersSpot){
+			stepsLeft=1;
+		}
 		if(stepsLeft==0){
 			
 			spotList.add(currentSpot);
@@ -345,6 +348,9 @@ public class FindSpots {
 			spotList.add(currentSpot);
 		}
 		
+		if(stepsLeft==0&&currentSpot==otherPlayersSpot){
+			stepsLeft=1;
+		}
 		
 		if(stepsLeft==0){
 			
@@ -550,6 +556,10 @@ public class FindSpots {
 			spotList.add(currentSpot);
 		}
 		
+		if(stepsLeft==0&&currentSpot==otherPlayersSpot){
+			stepsLeft=1;
+		}
+		
 		if(stepsLeft==0){
 			
 			spotList.add(currentSpot);
@@ -749,7 +759,9 @@ public class FindSpots {
 		currentSpot += 1;
 		
 		//System.out.println("Steps left: "+stepsLeft+" Current Spot: "+currentSpot +" previous spot: "+previousSpot);
-		
+		if(stepsLeft==0&&currentSpot==otherPlayersSpot){
+			stepsLeft=1;
+		}
 		if(currentSpot==23){
 			checkForward(stepsLeft-1, currentSpot, otherPlayersSpot);
 			checkJump(stepsLeft-1, currentSpot, otherPlayersSpot, 39);
