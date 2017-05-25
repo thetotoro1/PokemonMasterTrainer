@@ -16,6 +16,8 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Label;
+import javafx.scene.control.Labeled;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -31,6 +33,7 @@ import javafx.scene.paint.CycleMethod;
 import javafx.scene.paint.LinearGradient;
 import javafx.scene.paint.Stop;
 import javafx.scene.shape.Circle;
+import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
 import pokeObjects.Player;
@@ -428,6 +431,28 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 	@FXML
 	private TilePane beltTilePane;
 	
+	@FXML
+	private Pane pokeballPane;
+	
+	@FXML
+	private Label pokeballLabel;
+	
+	@FXML
+	private Label pokeballDiscription;
+	
+	@FXML
+	private Polygon pokeballLeftTriangle;
+	
+	@FXML
+	private ImageView pokeballPokemon;
+	
+	@FXML
+	private Label pokeballCount;
+	
+	@FXML
+	private ImageView pokeballImage;
+
+	
 	static private Spot[] spots = new Spot[76];
 	
 
@@ -447,6 +472,10 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 	
 	private ArrayList <PokeChip> myPokemon;
 	private ArrayList <PokeChip> theirPokemon;
+
+	int pokeballIndex = 0;
+	
+	
 
 
 	@Override
@@ -563,6 +592,13 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		//TO-DO this is set after a roll
 		isMoving=true;
 
+		//test pokeball pane
+		PokeChip pokeballPokemon = new PokeChip(22);
+		openPokeballPane(pokeballPokemon);
+		
+	
+		
+		addPokemon(66, 3);
 		
 		
 		//test pokebelt
@@ -707,6 +743,75 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 
 			
 		}
+		
+	}
+	
+	private void openPokeballPane(PokeChip pokemon){
+		
+		resetPokemonPane();
+		
+		//set pokemon image
+		Image image = new Image(pokemon.url,475,475,false,true);
+		
+		pokeballPokemon.setImage(image);
+		
+		
+		
+		pokeballPane.setLayoutX(425);
+		pokeballPane.setLayoutY(150);
+		pokeballPane.toFront();
+	}
+	
+	private void resetPokemonPane() {
+		//set image to pokeball
+		FileInputStream input;
+		try {
+			input = new FileInputStream("resources/Poke Ball.png");
+			Image pokeImage = new Image(input);
+			pokeballImage.setImage(pokeImage);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		
+		//reset index
+		pokeballIndex = 0;
+		
+		//set texts
+		pokeballLabel.setText("Pok"+pokemonE+"ball");
+		pokeballDiscription.setText("Click the ball to try to catch this\n"
+				+ "pok"+pokemonE+"mon. Normal pok"+pokemonE+"balls\n"
+						+ "do not alter your roll. Use the\n"
+						+ "arrows to change your pok"+pokemonE+"ball.");
+		pokeballCount.setText("∞");
+	}
+
+	@FXML
+	private void handlePokeball(MouseEvent clickedSpot){
+		
+		String areaClicked = clickedSpot.getTarget().toString();
+		//System.out.println("spot clicked " + areaClicked);
+		
+		if(clickedSpot.getTarget()==pokeballLeftTriangle){
+			System.out.println("clicked left");
+			if (pokeballIndex==0) {
+				pokeballIndex=3;
+			}
+			else{
+				pokeballIndex--;
+			}
+		}
+		else{
+			System.out.println("clicked right");
+			if (pokeballIndex==3) {
+				pokeballIndex=0;
+			}
+			else{
+				pokeballIndex++;
+			}
+		}
+			
+			
+		
 		
 	}
 

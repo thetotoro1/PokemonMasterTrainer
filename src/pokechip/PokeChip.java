@@ -24,8 +24,8 @@ public class PokeChip implements PokeChipConstants{
 	public String name;
 	public int attackStrength;
 	public int powerPoints;
-	private String url;
-	private ImageView imageView;
+	public String url;
+	public ImageView imageView;
 	private Text chipName; 
 	public AnchorPane anchorPane = new AnchorPane();
 	private StackPane nameStack;
@@ -51,9 +51,13 @@ public class PokeChip implements PokeChipConstants{
 		this.url += ".png";
 		
 		Image image = new Image(url,80,80,false,true);
-		
 
 		imageView = new ImageView(image);
+		
+		
+		
+		
+		
 		
 		//get info about pokemon
 		try {

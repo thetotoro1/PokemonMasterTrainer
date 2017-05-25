@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.Double?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.TilePane?>
 <?import javafx.scene.paint.LinearGradient?>
 <?import javafx.scene.paint.Stop?>
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Polygon?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
 <AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1350.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="client.BoardController">
@@ -242,24 +247,66 @@
       <Circle fx:id="spot55" fill="#003790" layoutX="863.0" layoutY="691.0" onMouseClicked="#handleClicks" radius="17.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
       <Circle fx:id="spot56" fill="#003790" layoutX="787.0" layoutY="698.0" onMouseClicked="#handleClicks" radius="17.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
       <Circle fx:id="spot57" fill="#003790" layoutX="722.0" layoutY="691.0" onMouseClicked="#handleClicks" radius="17.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Pane fx:id="catchPane" layoutX="552.0" layoutY="870.0" prefHeight="500.0" prefWidth="500.0">
+      <Pane fx:id="pokeballPane" layoutX="552.0" layoutY="870.0" prefHeight="500.0" prefWidth="500.0">
          <children>
-            <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="500.0" stroke="BLACK" strokeType="INSIDE" width="500.0" />
-            <ImageView fx:id="greatball" fitHeight="150.0" fitWidth="200.0" layoutX="14.0" layoutY="336.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../Resources/Great%20Ball.png" />
-               </image>
-            </ImageView>
-            <ImageView fitHeight="150.0" fitWidth="200.0" layoutX="175.0" layoutY="336.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../Resources/Ultra%20Ball.png" />
-               </image>
-            </ImageView>
-            <ImageView fx:id="greatball1" fitHeight="150.0" fitWidth="200.0" layoutX="164.0" layoutY="169.0" pickOnBounds="true" preserveRatio="true">
+            <Rectangle arcHeight="20.0" arcWidth="20.0" fill="DODGERBLUE" height="500.0" stroke="BLACK" strokeType="INSIDE" width="500.0" />
+            <Rectangle arcHeight="20.0" arcWidth="20.0" fill="DODGERBLUE" height="183.0" layoutX="150.0" layoutY="214.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+            <StackPane layoutY="214.0" prefHeight="41.0" prefWidth="500.0">
+               <children>
+                  <Rectangle arcHeight="20.0" arcWidth="20.0" fill="DODGERBLUE" height="47.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+                  <Label fx:id="pokeballLabel" text="Pokeball">
+                     <font>
+                        <Font name="System Bold" size="18.0" />
+                     </font>
+                  </Label>
+               </children>
+            </StackPane>
+            <StackPane layoutY="404.0" prefHeight="55.0" prefWidth="500.0">
+               <children>
+                  <Rectangle arcHeight="20.0" arcWidth="20.0" fill="DODGERBLUE" height="82.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+                  <Label fx:id="pokeballDiscription" text="Pokeball\ntest" textAlignment="CENTER" StackPane.alignment="CENTER" />
+               </children>
+            </StackPane>
+            <ImageView fx:id="pokeballImage" fitHeight="119.0" fitWidth="136.0" layoutX="191.0" layoutY="268.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../Resources/Poke%20Ball.png" />
                </image>
             </ImageView>
+            <Polygon fx:id="pokeballLeftTriangle" fill="DODGERBLUE" layoutX="80.0" layoutY="334.0" onMouseClicked="#handlePokeball" rotate="-90.0" stroke="BLACK" strokeType="INSIDE">
+              <points>
+                <Double fx:value="-50.0" />
+                <Double fx:value="40.0" />
+                <Double fx:value="50.0" />
+                <Double fx:value="40.0" />
+                <Double fx:value="0.0" />
+                <Double fx:value="-60.0" />
+              </points>
+            </Polygon>
+            <Polygon fx:id="pokeballRightTriangle" fill="DODGERBLUE" layoutX="420.0" layoutY="334.0" onMouseClicked="#handlePokeball" rotate="90.0" stroke="BLACK" strokeType="INSIDE">
+               <points>
+                  <Double fx:value="-50.0" />
+                  <Double fx:value="40.0" />
+                  <Double fx:value="50.0" />
+                  <Double fx:value="40.0" />
+                  <Double fx:value="0.0" />
+                  <Double fx:value="-60.0" />
+               </points>
+            </Polygon>
+            <Label layoutX="310.0" layoutY="366.0" text="X">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="pokeballCount" layoutX="324.0" layoutY="362.0" text="∞">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <StackPane prefHeight="208.0" prefWidth="500.0">
+               <children>
+                  <ImageView fx:id="pokeballPokemon" fitHeight="220.0" fitWidth="220.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </StackPane>
          </children>
       </Pane>
       <Circle fx:id="spot68" fill="#d20f2d" layoutX="633.0" layoutY="741.0" onMouseClicked="#handleClicks" radius="17.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
