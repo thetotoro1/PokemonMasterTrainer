@@ -7,6 +7,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.TilePane?>
@@ -249,30 +250,31 @@
       <Circle fx:id="spot57" fill="#003790" layoutX="722.0" layoutY="691.0" onMouseClicked="#handleClicks" radius="17.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
       <Pane fx:id="pokeballPane" layoutX="552.0" layoutY="870.0" prefHeight="500.0" prefWidth="500.0">
          <children>
-            <Rectangle arcHeight="20.0" arcWidth="20.0" fill="DODGERBLUE" height="500.0" stroke="BLACK" strokeType="INSIDE" width="500.0" />
-            <Rectangle arcHeight="20.0" arcWidth="20.0" fill="DODGERBLUE" height="183.0" layoutX="150.0" layoutY="214.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
-            <StackPane layoutY="214.0" prefHeight="41.0" prefWidth="500.0">
+            <Rectangle fx:id="pokeballBackground" arcHeight="20.0" arcWidth="20.0" fill="DODGERBLUE" height="500.0" stroke="BLACK" strokeType="INSIDE" width="500.0" />
+            <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#9bceff" height="143.0" layoutX="150.0" layoutY="254.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+            <StackPane layoutY="246.0" prefHeight="41.0" prefWidth="500.0">
                <children>
-                  <Rectangle arcHeight="20.0" arcWidth="20.0" fill="DODGERBLUE" height="47.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
-                  <Label fx:id="pokeballLabel" text="Pokeball">
+                  <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#0059a8" height="47.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+                  <Label fx:id="pokeballLabel" text="Pokeball" textFill="WHITE">
                      <font>
                         <Font name="System Bold" size="18.0" />
                      </font>
                   </Label>
                </children>
             </StackPane>
+            <Rectangle fill="#0059a8" height="14.0" layoutX="151.0" layoutY="280.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="198.0" />
             <StackPane layoutY="404.0" prefHeight="55.0" prefWidth="500.0">
                <children>
-                  <Rectangle arcHeight="20.0" arcWidth="20.0" fill="DODGERBLUE" height="82.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
+                  <Rectangle arcHeight="20.0" arcWidth="20.0" fill="#9bceff" height="82.0" stroke="BLACK" strokeType="INSIDE" width="200.0" />
                   <Label fx:id="pokeballDiscription" text="Pokeball\ntest" textAlignment="CENTER" StackPane.alignment="CENTER" />
                </children>
             </StackPane>
-            <ImageView fx:id="pokeballImage" fitHeight="119.0" fitWidth="136.0" layoutX="191.0" layoutY="268.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fx:id="pokeballImage" fitHeight="100.0" fitWidth="100.0" layoutX="200.0" layoutY="293.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../Resources/Poke%20Ball.png" />
                </image>
             </ImageView>
-            <Polygon fx:id="pokeballLeftTriangle" fill="DODGERBLUE" layoutX="80.0" layoutY="334.0" onMouseClicked="#handlePokeball" rotate="-90.0" stroke="BLACK" strokeType="INSIDE">
+            <Polygon fx:id="pokeballLeftTriangle" fill="#ffc934" layoutX="82.0" layoutY="353.0" onMouseClicked="#handlePokeball" rotate="-90.0" stroke="#ff7b21" strokeType="INSIDE">
               <points>
                 <Double fx:value="-50.0" />
                 <Double fx:value="40.0" />
@@ -282,7 +284,7 @@
                 <Double fx:value="-60.0" />
               </points>
             </Polygon>
-            <Polygon fx:id="pokeballRightTriangle" fill="DODGERBLUE" layoutX="420.0" layoutY="334.0" onMouseClicked="#handlePokeball" rotate="90.0" stroke="BLACK" strokeType="INSIDE">
+            <Polygon fx:id="pokeballRightTriangle" fill="#ffc934" layoutX="420.0" layoutY="353.0" onMouseClicked="#handlePokeball" rotate="90.0" stroke="#ff7b21" strokeType="INSIDE">
                <points>
                   <Double fx:value="-50.0" />
                   <Double fx:value="40.0" />
@@ -305,6 +307,47 @@
             <StackPane prefHeight="208.0" prefWidth="500.0">
                <children>
                   <ImageView fx:id="pokeballPokemon" fitHeight="220.0" fitWidth="220.0" pickOnBounds="true" preserveRatio="true" />
+               </children>
+            </StackPane>
+            <StackPane layoutY="194.0" prefHeight="60.0" prefWidth="500.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
+                     <children>
+                        <ImageView fx:id="pokeballDie1" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Resources/Dice/dieWhite_border1.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="pokeballDie2" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Resources/Dice/dieWhite_border2.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="pokeballDie3" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Resources/Dice/dieWhite_border3.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="pokeballDie4" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Resources/Dice/dieWhite_border4.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="pokeballDie5" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Resources/Dice/dieWhite_border5.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fx:id="pokeballDie6" fitHeight="30.0" fitWidth="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../../Resources/Dice/dieWhite_border6.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                  </HBox>
                </children>
             </StackPane>
          </children>

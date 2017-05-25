@@ -452,6 +452,24 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 	@FXML
 	private ImageView pokeballImage;
 
+	@FXML 
+	private Rectangle pokeballBackground;
+	
+	@FXML
+	private ImageView pokeballDie1;
+	@FXML
+	private ImageView pokeballDie2;
+	@FXML
+	private ImageView pokeballDie3;
+	@FXML
+	private ImageView pokeballDie4;
+	@FXML
+	private ImageView pokeballDie5;
+	@FXML
+	private ImageView pokeballDie6;
+	
+	
+	
 	
 	static private Spot[] spots = new Spot[76];
 	
@@ -475,7 +493,7 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 
 	int pokeballIndex = 0;
 	
-	
+	int pokeballColor = PINK;
 
 
 	@Override
@@ -593,7 +611,7 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		isMoving=true;
 
 		//test pokeball pane
-		PokeChip pokeballPokemon = new PokeChip(22);
+		PokeChip pokeballPokemon = new PokeChip(63);
 		openPokeballPane(pokeballPokemon);
 		
 	
@@ -752,9 +770,48 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		
 		//set pokemon image
 		Image image = new Image(pokemon.url,475,475,false,true);
-		
 		pokeballPokemon.setImage(image);
 		
+		int[] pokeballDice = {0,0,0,0,0,0};
+		
+		//set background color and dice array
+		//System.out.println("Pokemon Color: " + pokemon.color);
+		
+		if(pokemon.color.equals("Pink")){
+			pokeballBackground.setFill(Color.rgb(255, 76, 123));
+			pokeballDice[2] = 1;	//3 4 5
+			pokeballDice[3] = 1;
+			pokeballDice[4] = 1;
+			pokeballColor = PINK;
+		}
+		else if(pokemon.color.equals("Green")){
+			pokeballBackground.setFill(Color.rgb(24, 103, 24));
+			pokeballDice[3] = 1;	//4 5
+			pokeballDice[4] = 1;
+			pokeballColor = GREEN;
+
+		}
+		else if(pokemon.color.equals("Blue")){
+			pokeballBackground.setFill(Color.rgb(0, 55, 144));
+			pokeballDice[2] = 1;	//3 4
+			pokeballDice[3] = 1;
+			pokeballColor = BLUE;
+		}
+		else if(pokemon.color.equals("Red")){
+			pokeballBackground.setFill(Color.rgb(210, 15, 45));
+			pokeballDice[4] = 1;	//5
+			pokeballColor = RED;
+
+		}
+		else if(pokemon.color.equals("Legendary")){
+			pokeballBackground.setFill(Color.rgb(225, 174, 45));
+			pokeballDice[5] = 1;	//6
+			pokeballColor = LEGENDARY;
+
+
+		}
+		
+		setDiceOpacity(pokeballDice);
 		
 		
 		pokeballPane.setLayoutX(425);
@@ -767,7 +824,7 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		FileInputStream input;
 		try {
 			input = new FileInputStream("resources/Poke Ball.png");
-			Image pokeImage = new Image(input);
+			Image pokeImage = new Image(input,200,200,false,true);
 			pokeballImage.setImage(pokeImage);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -783,6 +840,7 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 						+ "do not alter your roll. Use the\n"
 						+ "arrows to change your pok"+pokemonE+"ball.");
 		pokeballCount.setText("∞");
+	
 	}
 
 	@FXML
@@ -791,6 +849,9 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		String areaClicked = clickedSpot.getTarget().toString();
 		//System.out.println("spot clicked " + areaClicked);
 		
+		int[] pokeballDice = {0,0,0,0,0,0};
+		
+		//cycle through balls
 		if(clickedSpot.getTarget()==pokeballLeftTriangle){
 			System.out.println("clicked left");
 			if (pokeballIndex==0) {
@@ -799,6 +860,7 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 			else{
 				pokeballIndex--;
 			}
+			
 		}
 		else{
 			System.out.println("clicked right");
@@ -809,11 +871,283 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 				pokeballIndex++;
 			}
 		}
-			
-			
 		
+		
+		
+		
+			System.out.println("pokemon color: "+ pokeballColor);
+		//set up switch dice array
+		switch (pokeballColor) {
+		case PINK:
+			System.out.println("in pink pokeballIndex: "+pokeballIndex);
+
+			switch (pokeballIndex) {
+			case 0://pokeball
+				System.out.println("in pokeball pink");
+
+				pokeballDice[2] = 1;	//3 4 5
+				pokeballDice[3] = 1;
+				pokeballDice[4] = 1;
+				break;
+			case 1://greatball
+				pokeballDice[1] = 1;	//2
+				pokeballDice[2] = 1;	//3 4 5
+				pokeballDice[3] = 1;
+				pokeballDice[4] = 1;
+				pokeballDice[5] = 1;	//6
+				break;
+			case 2://ultraball
+				pokeballDice[0] = 1;	//1
+				pokeballDice[1] = 1;	//2
+				pokeballDice[2] = 1;	//3 4 5
+				pokeballDice[3] = 1;
+				pokeballDice[4] = 1;
+				break;
+			case 3://masterball
+				pokeballDice[0] = 1;	//1
+				pokeballDice[1] = 1;	//2
+				pokeballDice[2] = 1;	//3 4 5
+				pokeballDice[3] = 1;
+				pokeballDice[4] = 1;
+				break;
+			default:
+				break;
+			}
+			break;
+		case GREEN:
+			switch (pokeballIndex) {
+			case 0://pokeball
+				pokeballDice[3] = 1;	//4 5
+				pokeballDice[4] = 1;
+				break;
+			case 1://greatball
+				pokeballDice[2] = 1;	//3
+				pokeballDice[3] = 1;	//4 5
+				pokeballDice[4] = 1;
+				pokeballDice[5] = 1;	//6
+				break;
+			case 2://ultraball
+				pokeballDice[1] = 1;	//2
+				pokeballDice[2] = 1;	//3
+				pokeballDice[3] = 1;	//4 5
+				pokeballDice[4] = 1;
+				break;
+			case 3://masterball
+				pokeballDice[0] = 1;	//1
+				pokeballDice[1] = 1;	//2
+				pokeballDice[2] = 1;	//3
+				pokeballDice[3] = 1;	//4 5
+				pokeballDice[4] = 1;
+				break;
+			default:
+				break;
+			}
+			break;
+		case BLUE:
+			switch (pokeballIndex) {
+			case 0://pokeball
+				pokeballDice[2] = 1;	//3 4
+				pokeballDice[3] = 1;
+				break;
+			case 1://greatball
+				pokeballDice[1] = 1;	//2
+				pokeballDice[2] = 1;	//3 4
+				pokeballDice[3] = 1;
+				pokeballDice[4] = 1;	//5
+				break;
+			case 2://ultraball
+				pokeballDice[0] = 1;	//1
+				pokeballDice[1] = 1;	//2
+				pokeballDice[2] = 1;	//3 4
+				pokeballDice[3] = 1;
+				break;
+			case 3://masterball
+				pokeballDice[0] = 1;	//1
+				pokeballDice[1] = 1;	//2
+				pokeballDice[2] = 1;	//3 4
+				pokeballDice[3] = 1;
+				break;
+			default:
+				break;
+			}
+			break;
+		case RED:
+			switch (pokeballIndex) {
+			case 0://pokeball
+				pokeballDice[4] = 1;	//5
+				break;
+			case 1://greatball
+				pokeballDice[3] = 1;	//4
+				pokeballDice[4] = 1;	//5
+				pokeballDice[5] = 1;	//6
+				break;
+			case 2://ultraball
+				pokeballDice[2] = 1;	//3
+				pokeballDice[3] = 1;	//4
+				pokeballDice[4] = 1;	//5
+				break;
+			case 3://masterball
+				pokeballDice[0] = 1;	//1
+				pokeballDice[1] = 1;	//2
+				pokeballDice[2] = 1;	//3
+				pokeballDice[3] = 1;	//4
+				pokeballDice[4] = 1;	//5
+				break;
+			default:
+				break;
+			}
+			break;
+		case LEGENDARY:
+			switch (pokeballIndex) {
+			case 0://pokeball
+				pokeballDice[5] = 1;	//6
+				break;
+			case 1://greatball
+				pokeballDice[4] = 1;	//5
+				pokeballDice[5] = 1;	//6
+				break;
+			case 2://ultraball
+				pokeballDice[3] = 1;	//4
+				pokeballDice[4] = 1;	//5
+				pokeballDice[5] = 1;	//6
+				break;
+			case 3://masterball
+				pokeballDice[1] = 1;	//2
+				pokeballDice[2] = 1;	//3
+				pokeballDice[3] = 1;	//4
+				pokeballDice[4] = 1;	//5
+				pokeballDice[5] = 1;	//6
+				break;
+			default:
+				break;
+			}
+			break;
+		default:
+			break;
+		}
+		setDiceOpacity(pokeballDice);
+		
+		//change ball image and text
+		FileInputStream input;
+		
+		switch (pokeballIndex) {
+		case 0:
+			resetPokemonPane();
+			break;
+		case 1:
+			try {
+				input = new FileInputStream("resources/Great Ball.png");
+				Image image = new Image(input,200,200,false,true);
+				pokeballImage.setImage(image);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+			
+			//set texts
+			pokeballLabel.setText("Great Ball");
+			pokeballDiscription.setText("This pok"+pokemonE+"ball will\n"
+					+ "add 1 to (or subtract\n"
+							+ "1 from) your roll.");
+			
+			//set counter
+			
+			
+			
+			
+			break;
+		case 2:
+			try {
+				input = new FileInputStream("resources/Ultra Ball.png");
+				Image image = new Image(input,200,200,false,true);
+				pokeballImage.setImage(image);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+			
+			//set texts
+			pokeballLabel.setText("Great Ball");
+			pokeballDiscription.setText("This pok"+pokemonE+"ball will\n"
+					+ "add 1 or 2\n"
+							+ "to your roll.");
+			
+			//set counter
+			
+			
+			break;
+		case 3:
+			try {
+				input = new FileInputStream("resources/Master Ball.png");
+				Image image = new Image(input,200,200,false,true);
+				pokeballImage.setImage(image);
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			}
+			
+			//set texts
+			pokeballLabel.setText("Great Ball");
+			pokeballDiscription.setText("This pok"+pokemonE+"ball will\n"
+					+ "add 1, 2, 3, or 4\n"
+							+ "to your roll.");
+			
+			//set counter
+			
+			
+			break;
+		default:
+			break;
+		}
 		
 	}
+
+	private void setDiceOpacity(int[] pokeballDice) {
+		if(pokeballDice[0]==1){	//1
+			System.out.println("in die 1");
+
+			pokeballDie1.setOpacity(1);
+		}
+		else{
+			pokeballDie1.setOpacity(.33);
+			System.out.println("1 opacity: "+ pokeballDie1.getOpacity());
+
+		}
+		if(pokeballDice[1]==1){ //2
+			System.out.println("in die 2");
+
+			pokeballDie2.setOpacity(1);
+		}
+		else{
+			pokeballDie2.setOpacity(.33);
+		}
+		if(pokeballDice[2]==1){ //3
+			System.out.println("in die 3");
+
+			pokeballDie3.setOpacity(1);
+		}
+		else{
+			pokeballDie3.setOpacity(.33);
+		}
+		if(pokeballDice[3]==1){ //4
+			System.out.println("in die 4");
+
+			pokeballDie4.setOpacity(1);
+		}
+		else{
+			pokeballDie4.setOpacity(.33);
+		}
+		if(pokeballDice[4]==1){ //5
+			pokeballDie5.setOpacity(1);
+		}
+		else{
+			pokeballDie5.setOpacity(.33);
+		}
+		if(pokeballDice[5]==1){ //6
+			pokeballDie6.setOpacity(1);
+		}
+		else{
+			pokeballDie6.setOpacity(.33);
+		}
+	}
+
 
 	private void checkSpotAction(int spotNumber) {
 		if(spots[spotNumber].getAction()==catchPokemon){
