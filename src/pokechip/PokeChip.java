@@ -30,6 +30,7 @@ public class PokeChip implements PokeChipConstants{
 	public AnchorPane anchorPane = new AnchorPane();
 	private StackPane nameStack;
 	private Text powerPointText;
+	public boolean fainted = false;
 	
 	public PokeChip(int dexNumber) {
 		this.dexNumber = dexNumber;
