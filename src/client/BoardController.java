@@ -7,9 +7,12 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.concurrent.TimeUnit;
 
 import javafx.animation.Animation;
 import javafx.animation.Transition;
@@ -482,6 +485,10 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 	@FXML
 	private ImageView pokeball6;
 	
+	@FXML
+	private Label pokeballInfo;
+	@FXML
+	private Label pokeballMessage;
 	
 	static private Spot[] spots = new Spot[76];
 	
@@ -501,8 +508,8 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 
 	private int currentSpot = 0;
 	
-	private ArrayList <PokeChip> myPokemon;
-	private ArrayList <PokeChip> theirPokemon;
+	private ArrayList <PokeChip> myPokemon = new ArrayList<PokeChip>();
+	private ArrayList <PokeChip> theirPokemon = new ArrayList<PokeChip>();
 	private int[] myItemCards = {0,0,0,0,0,0,0,0,0,0,0,0};
 
 	int pokeballIndex = 0;
@@ -510,6 +517,10 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 	int pokeballColor = PINK;
 
 	ImageView[] pokeballDice;
+
+	private boolean hasUsedTimeMachine = false;
+	private boolean pokeballPaneExit = false;
+	
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
@@ -639,14 +650,15 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		myItemCards[MASTERBALL]=4;
 		
 		//test pokeball pane
-		PokeChip pokeballPokemon = new PokeChip(149);
-		openPokeballPane(pokeballPokemon);
+		//PokeChip pokeballPokemon = new PokeChip(149);
+		//openPokeballPane(pokeballPokemon);
 		
 		//test pokemon catching
 		isCatching=true;
 		
-		addPokemon(66, 3);
 		
+		
+
 		
 		//test pokebelt
 //		PokeChip myPokemon[] = new PokeChip[151];
@@ -705,6 +717,66 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		
 	}
 	
+	//checks which action is landed on
+	private void checkSpotAction(int spotNumber) {
+			if(spots[spotNumber].getAction()==catchPokemon){
+				System.out.println("Landed on a catch pokemon spot");
+				if(spots[spotNumber].pokemon==null){
+					System.out.println("spot empty filling with pokemon");
+
+					//send catchpokemon action to server with color.
+					
+					//receive which pokemon from server. add pokemon to board
+					
+					//testing pokemon
+					addPokemon(10, 6);
+					
+				}
+				else{
+					System.out.println("pokemon is here. trying to catch");
+				}
+					openPokeballPane(spots[players[player].currentSpot].pokemon);
+				
+				
+				//try and catch pokemon
+				
+			}
+			else if(spots[spotNumber].getAction()==eventCard){
+				System.out.println("Landed on a event card spot");
+
+				//send eventCard action to server
+				
+				//receive which type of card back from server twice. add cards to player's hand
+				
+				
+			}
+			else if(spots[spotNumber].getAction()==pokecenter){
+				System.out.println("Landed on a pokecenter spot");
+
+				//start little game to heal pokemon
+				
+			}
+			else if(spots[spotNumber].getAction()==citySpot){
+				System.out.println("Landed on a city draw 2 spot");
+
+				//send drawCards action to server
+				
+				//receive which type of card back from server twice. add cards to player's hand
+			}
+			else if(spots[spotNumber].getAction()==finalSpot){
+				System.out.println("Landed on the final spot");
+
+				//send eventCard action to server
+				
+				//receive which type of card back from server twice. add cards to player's hand
+
+				//check to see if player has enough points to enter. if so set flag for indigo warp
+			}
+			else{
+				
+			}
+		}
+	
 	private void testAllSpots(){
 		//this fills in every spot
 		for(int index=0, i=1;index<76;index++,i++){
@@ -758,7 +830,7 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 	}
 	
 	@FXML
-	private void handleClicks(MouseEvent clickedSpot){
+	private void handleBoard(MouseEvent clickedSpot){
 		
 		String areaClicked = clickedSpot.getTarget().toString();
 		//System.out.println("spot clicked " + areaClicked);
@@ -784,7 +856,7 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 				
 				checkSpotAction(spotNumber);
 				//to test movement
-				highlightSpotsOn(1);
+				//highlightSpotsOn(1);
 			}
 
 			
@@ -800,11 +872,20 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		Image image = new Image(pokemon.url,475,475,false,true);
 		pokeballPokemon.setImage(image);
 		
+		//get info about pokemon
+		
+		pokeballInfo.setText(pokemon.name+ " #"+pokemon.dexNumber+"\n"
+						+ "Power Points: "+pokemon.powerPoints+"\n"
+								+ "Attack Power: "+pokemon.attackStrength);
+		
+		pokeballMessage.setText("A wild "+pokemon.name+"\n"
+				+ "has appeared!");
+		
+		
+		
 		int[] pokeballDice = {0,0,0,0,0,0};
 		
-		for (int i = 0; i < pokeballDice.length; i++) {
-			
-		}
+		
 		
 		//set background color and dice array
 		//System.out.println("Pokemon Color: " + pokemon.color);
@@ -885,6 +966,7 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 
 	}
 
+	//pokeball catching pane and handles
 	@FXML
 	private void handlePokeball(MouseEvent clickedSpot){
 		
@@ -1160,12 +1242,10 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		}
 	}
 
-	
-	
 	@FXML
 	private void handleCatch(MouseEvent clickedSpot){
-		
 		if(isCatching){
+			clickedSpot.consume();
 			String areaClicked = clickedSpot.getTarget().toString();
 			System.out.println("spot clicked " + areaClicked);
 			System.out.println("current ball index " + pokeballIndex);
@@ -1227,7 +1307,6 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 					Image image = new Image(input,30,30,false,true);
 					pokeball1.setImage(image);
 				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -1246,7 +1325,6 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 					Image image = new Image(input,30,30,false,true);
 					pokeball1.setImage(image);
 				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -1256,7 +1334,6 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 					Image image = new Image(input,30,30,false,true);
 					pokeball1.setImage(image);
 				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -1269,7 +1346,6 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 					Image image = new Image(input,30,30,false,true);
 					pokeball2.setImage(image);
 				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -1288,7 +1364,6 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 					Image image = new Image(input,30,30,false,true);
 					pokeball2.setImage(image);
 				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -1298,7 +1373,6 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 					Image image = new Image(input,30,30,false,true);
 					pokeball2.setImage(image);
 				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -1483,59 +1557,54 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		
 		
 		//check to see if that die is opaque or not
+		if(pokeballDice[randomNumber-1].getOpacity()>=1){
+			//catch the pokemon 
+			System.out.println("Pokemon Caught");
+			pokeballMessage.setText("You caught a\n"
+					+ spots[players[player].currentSpot].pokemon.name+"\n"
+					+ "Click anywhere to\n"
+					+ "continue.");
+			
+			//add pokemon from spot to belt.
+			myPokemon.add(spots[players[player].currentSpot].pokemon);
+			beltTilePane.getChildren().add(myPokemon.get(myPokemon.size()-1).anchorPane);
+			
+			
+			pokeballPaneExit = true;
+			
+			//tell server pokemon was removed from the board and added to players belt
+			
+		}
+		else{
+			//check to see if player has a time machine
+			if(myItemCards[TIMEMACHINE]>0&&hasUsedTimeMachine ==false){
+				//show timemachine pane
+				
+			}
+			else{
+				//pokemon fled
+				System.out.println("Pokemon Fled");
+				pokeballMessage.setText(spots[players[player].currentSpot].pokemon.name+" has fled!\n"
+						+ "Click anywhere to\n"
+						+ "continue.");
+
+				pokeballPaneExit = true;
+
+			}
+		}
 		
-		//if not opaque catch pokemon
-		
-		//if opaque check to see if has a TIMEMACHINE
 		
 	}
 
-	private void setDiceWhite(){
-		FileInputStream input;
-		try {
-			input = new FileInputStream("resources/Dice/dieWhite1.png");
-			Image image = new Image(input,50,50,false,true);
-			pokeballDie1.setImage(image);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		try {
-			input = new FileInputStream("resources/Dice/dieWhite2.png");
-			Image image = new Image(input,50,50,false,true);
-			pokeballDie2.setImage(image);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		try {
-			input = new FileInputStream("resources/Dice/dieWhite3.png");
-			Image image = new Image(input,50,50,false,true);
-			pokeballDie3.setImage(image);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		try {
-			input = new FileInputStream("resources/Dice/dieWhite4.png");
-			Image image = new Image(input,50,50,false,true);
-			pokeballDie4.setImage(image);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		try {
-			input = new FileInputStream("resources/Dice/dieWhite5.png");
-			Image image = new Image(input,50,50,false,true);
-			pokeballDie5.setImage(image);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		try {
-			input = new FileInputStream("resources/Dice/dieWhite6.png");
-			Image image = new Image(input,50,50,false,true);
-			pokeballDie6.setImage(image);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
+	@FXML
+	private void exitPokeballPane(){
+		if(pokeballPaneExit){
+		System.out.println("Exiting pokemon catching pane");
+		pokeballPane.setLayoutY(1000);
 		}
 	}
 	
+	//takes in dice array and sets opaque or translucent
 	private void setDiceOpacity(int[] pokeballDice) {
 		if(pokeballDice[0]==1){	//1
 			pokeballDie1.setOpacity(1);
@@ -1575,58 +1644,7 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		}
 	}
 
-
-	private void checkSpotAction(int spotNumber) {
-		if(spots[spotNumber].getAction()==catchPokemon){
-			System.out.println("Landed on a catch pokemon spot");
-			if(spots[spotNumber].pokemon==null){
-				System.out.println("spot empty filling with pokemon");
-
-				//send catchpokemon action to server with color.
-				
-				//receive which pokemon from server. add pokemon to board
-				
-			}
-			
-			//try and catch pokemon
-			
-		}
-		else if(spots[spotNumber].getAction()==eventCard){
-			System.out.println("Landed on a event card spot");
-
-			//send eventCard action to server
-			
-			//receive which type of card back from server twice. add cards to player's hand
-			
-			
-		}
-		else if(spots[spotNumber].getAction()==pokecenter){
-			System.out.println("Landed on a pokecenter spot");
-
-			//start little game to heal pokemon
-			
-		}
-		else if(spots[spotNumber].getAction()==citySpot){
-			System.out.println("Landed on a city draw 2 spot");
-
-			//send drawCards action to server
-			
-			//receive which type of card back from server twice. add cards to player's hand
-		}
-		else if(spots[spotNumber].getAction()==finalSpot){
-			System.out.println("Landed on the final spot");
-
-			//send eventCard action to server
-			
-			//receive which type of card back from server twice. add cards to player's hand
-
-			//check to see if player has enough points to enter. if so set flag for indigo warp
-		}
-		else{
-			
-		}
-	}
-
+	//move player pane to correct spot
 	private void setSpot(int spotNumber, int playerNumber){
 		//System.out.println("Spot set to: "+spotNumber +" for player "+playerNumber);
 
@@ -1658,6 +1676,7 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		
 	}
 	
+	//clears the die and sets it
 	private void setDie(int numberRolled){
 		
 		diePane.setVisible(true);
@@ -1712,6 +1731,7 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		
 	}
 
+	//highlight on/off open spots
 	private void highlightSpotsOn(int numberRolled){	
 		
 		int[] openSpots;
@@ -1750,7 +1770,8 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 			spots[i].highlightOff();
 		}
 	}
-
+	
+	//receive item number from server deck
 	public static void receiveItem(int itemType){
 		
 		//add indicating integer to itemCard list
@@ -1760,6 +1781,7 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		
 	}
 		
+	//add/remove pokemon from board
 	public void addPokemon(int dexNumber, int spotNumber){
 		PokeChip pokemon = new PokeChip(dexNumber);
 		spots[spotNumber].pokemon = pokemon;	
@@ -1773,14 +1795,13 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		spots[spotNumber].pokemon = null;
 	}
 	
-	@FXML
+	//show/hide pokebelt
 	public void showMyPokemon(){
 		System.out.println("showing pokemon");
 		beltPane.toFront();
 		beltPane.setLayoutY(500);
 	}
 	
-	@FXML
 	public void hideMyPokemon(){
 		beltPane.toBack();
 		beltPane.setLayoutY(1000);
