@@ -729,7 +729,7 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 					//receive which pokemon from server. add pokemon to board
 					
 					//testing pokemon
-					addPokemon(10, 6);
+					addPokemon(151, 6);
 					
 				}
 				else{

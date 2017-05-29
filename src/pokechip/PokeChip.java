@@ -76,17 +76,6 @@ public class PokeChip implements PokeChipConstants{
 
 
 		
-		//create a textbox centered for name
-		nameStack = new StackPane();
-		Rectangle textBox = new Rectangle(80, 15, Color.WHITE);
-		chipName = new Text("#"+this.dexNumber+" "+this.name);
-		//nameStack.setStyle("-fx-background-color: white;");
-		chipName.setTextAlignment(TextAlignment.CENTER);		
-		nameStack.getChildren().addAll(textBox, chipName);
-		nameStack.setLayoutY(60);
-		nameStack.setVisible(false);
-		nameStack.setMouseTransparent(true);
-		
 		//Power point text
 		powerPointText = new Text(""+this.powerPoints);
 		powerPointText.setStyle("-fx-stroke-width: 2px;"
@@ -100,10 +89,27 @@ public class PokeChip implements PokeChipConstants{
 		ppStack.setLayoutY(20);
 		ppStack.setVisible(false);
 		
-		Rectangle apTextBox = new Rectangle(80,15,Color.WHITE);
+		
+		//create a textbox centered for name
+		nameStack = new StackPane();
+		//Rectangle textBox = new Rectangle(80, 15, Color.WHITE);
+		chipName = new Text("#"+this.dexNumber+" "+this.name);
+		//nameStack.setStyle("-fx-background-color: white;");
+		chipName.setTextAlignment(TextAlignment.CENTER);
+		nameStack.setStyle("-fx-background-color: white");
+		nameStack.getChildren().add(chipName);
+		//nameStack.getChildren().addAll(textBox, chipName);
+		nameStack.setLayoutY(60);
+		nameStack.setVisible(false);
+		nameStack.setMouseTransparent(true);
+		
+		
+		
+		//Rectangle apTextBox = new Rectangle(80,15,Color.WHITE);
 		Text attack = new Text("Attack Power "+this.attackStrength);
 		attack.setTextAlignment(TextAlignment.CENTER);
-		StackPane apStack = new StackPane(apTextBox,attack);
+		StackPane apStack = new StackPane(attack);
+		apStack.setStyle("-fx-background-color: white");
 		apStack.setLayoutY(75);
 		apStack.setMouseTransparent(true);
 		apStack.setVisible(false);
@@ -137,10 +143,13 @@ public class PokeChip implements PokeChipConstants{
 			
 		});
 		
-		//this.anchorPane.setStyle("-fx-background-color: #2C8EB1"); 
+		
+		nameStack.setPrefWidth(100);
+		apStack.setPrefWidth(100);
+		nameStack.setLayoutX(-10);
+		apStack.setLayoutX(-10);
+		anchorPane.setPrefWidth(100);
 		this.anchorPane.getChildren().addAll(imageView,nameStack,ppStack,apStack);
-		//this.anchorPane.getStylesheets().addAll(getClass().getResource("pokechip.css").toExternalForm());
-		//anchorPane.setClip(new Circle(40, 40, 50));
 		
 }
 	
