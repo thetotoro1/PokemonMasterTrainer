@@ -20,6 +20,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.ScrollPane;
@@ -40,6 +41,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+import pokeObjects.ItemCard;
 import pokeObjects.Player;
 import pokeObjects.Spot;
 import pokeObjects.SpotConstants;
@@ -490,6 +492,11 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 	@FXML
 	private Label pokeballMessage;
 	
+	@FXML
+	private HBox itemHBox;
+	@FXML
+	private TilePane itemTilePane;
+	
 	static private Spot[] spots = new Spot[76];
 	
 
@@ -520,6 +527,8 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 
 	private boolean hasUsedTimeMachine = false;
 	private boolean pokeballPaneExit = false;
+
+	
 	
 
 	@Override
@@ -656,7 +665,45 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		//test pokemon catching
 		isCatching=true;
 		
+		//testing item cards
+		for(int i = 0; i<7;i++){
+			System.out.println("Made card "+(i+1));
+			ItemCard itemCard = new ItemCard(GREATBALL);
+			itemTilePane.getChildren().add(itemCard);
+		}
 		
+//		for (int i = 0; i < 7; i++) {
+//			Rectangle itemCard = new Rectangle(50, 90);
+//			itemCard.setFill(Color.WHITE);
+//			itemCard.setStroke(Color.BLACK);
+//			itemCard.setStrokeWidth(2);
+//			
+//			itemCard.setOnMouseEntered(new EventHandler<MouseEvent>(){
+//
+//				@Override
+//				public void handle(MouseEvent t) {
+//					
+//				}
+//				
+//				
+//				
+//			});
+//			
+//			itemCard.setOnMouseExited(new EventHandler<MouseEvent>(){
+//
+//				@Override
+//				public void handle(MouseEvent t) {
+//					
+//				}
+//				
+//				
+//				
+//			});
+//			
+//			
+//			
+//			itemTilePane.getChildren().add(itemCard);
+//		}
 		
 
 		
@@ -729,7 +776,7 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 					//receive which pokemon from server. add pokemon to board
 					
 					//testing pokemon
-					addPokemon(151, 6);
+					addPokemon(79, 6);
 					
 				}
 				else{

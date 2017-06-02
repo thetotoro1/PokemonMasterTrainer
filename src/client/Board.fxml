@@ -147,33 +147,98 @@
       <Circle fx:id="pokeSpot64" fill="#d20f2d" layoutX="317.0" layoutY="448.0" mouseTransparent="true" radius="40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
       <Circle fx:id="pokeSpot65" fill="#d20f2d" layoutX="321.0" layoutY="362.0" mouseTransparent="true" radius="40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
       <Circle fx:id="pokeSpot66" fill="#d20f2d" layoutX="333.0" layoutY="280.0" mouseTransparent="true" radius="40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Circle fx:id="legendary1" fill="#e1ae2d" layoutX="1189.0" layoutY="662.0" mouseTransparent="true" radius="40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Circle fx:id="legendary2" fill="#e1ae2d" layoutX="1274.0" layoutY="662.0" mouseTransparent="true" radius="40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Circle fx:id="legendary3" fill="#e1ae2d" layoutX="1189.0" layoutY="749.0" mouseTransparent="true" radius="40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Circle fx:id="legendary4" fill="#e1ae2d" layoutX="1274.0" layoutY="749.0" mouseTransparent="true" radius="40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Text fx:id="C" layoutX="164.0" layoutY="689.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Here" />
-      <Text layoutX="160.0" layoutY="671.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Pallet Town" />
-      <Text layoutX="163.0" layoutY="467.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Viridian City" />
-      <Text layoutX="149.0" layoutY="485.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Draw 2 Item Cards" />
-      <Text layoutX="204.0" layoutY="185.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Draw 2 Item Cards" />
-      <Text layoutX="461.0" layoutY="313.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Draw 2 Item Cards" />
-      <Text layoutX="577.0" layoutY="679.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Draw 2 Item Cards" />
-      <Text layoutX="704.0" layoutY="308.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Draw 2 Item Cards" />
-      <Text layoutX="1071.0" layoutY="286.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Draw 2 Item Cards" />
-      <Text layoutX="223.0" layoutY="167.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Pewter City" />
-      <Text layoutX="716.0" layoutY="136.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Cerulean  City" />
-      <Text layoutX="1083.0" layoutY="269.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Lavender Town" />
-      <Text layoutX="716.0" layoutY="286.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Saffron  City" />
-      <Text layoutX="475.0" layoutY="294.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Caladon  City" />
-      <Text layoutX="724.0" layoutY="421.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Vermillion City" />
-      <Text layoutX="707.0" layoutY="433.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Revive 1 Pokemon or" />
-      <Text layoutX="714.0" layoutY="448.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Roll a 1 or 6 for All" />
-      <Text layoutX="697.0" layoutY="151.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Revive 1 Pokemon or" />
-      <Text layoutX="704.0" layoutY="166.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Roll a 1 or 6 for All" />
-      <Text layoutX="594.0" layoutY="661.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Fuchsia City" />
-      <Text layoutX="300.0" layoutY="674.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Cinnabar Island" />
-      <Text layoutX="292.0" layoutY="687.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Draw 2 Item Cards" />
-      <Text layoutX="291.0" layoutY="699.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="20 CP to Advance" />
+      <Text fx:id="C" layoutX="164.0" layoutY="689.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Start Here" textAlignment="CENTER">
+         <font>
+            <Font name="Helvetica" size="12.0" />
+         </font></Text>
+      <Text layoutX="160.0" layoutY="671.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Pallet Town" textAlignment="CENTER">
+         <font>
+            <Font name="Helvetica" size="12.0" />
+         </font></Text>
+      <Text layoutX="163.0" layoutY="467.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Viridian City" textAlignment="CENTER">
+         <font>
+            <Font name="Helvetica" size="12.0" />
+         </font></Text>
+      <Text layoutX="145.0" layoutY="486.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Draw 2 Item Cards" textAlignment="CENTER">
+         <font>
+            <Font name="Helvetica" size="12.0" />
+         </font></Text>
+      <Text layoutX="204.0" layoutY="185.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Draw 2 Item Cards" textAlignment="CENTER">
+         <font>
+            <Font name="Helvetica" size="12.0" />
+         </font></Text>
+      <Text layoutX="461.0" layoutY="313.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Draw 2 Item Cards" textAlignment="CENTER">
+         <font>
+            <Font name="Helvetica" size="12.0" />
+         </font></Text>
+      <Text layoutX="577.0" layoutY="679.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Draw 2 Item Cards" textAlignment="CENTER">
+         <font>
+            <Font name="Helvetica" size="12.0" />
+         </font></Text>
+      <Text layoutX="704.0" layoutY="308.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Draw 2 Item Cards" textAlignment="CENTER">
+         <font>
+            <Font name="Helvetica" size="12.0" />
+         </font></Text>
+      <Text layoutX="1071.0" layoutY="286.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Draw 2 Item Cards" textAlignment="CENTER">
+         <font>
+            <Font name="Helvetica" size="12.0" />
+         </font></Text>
+      <Text layoutX="223.0" layoutY="167.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Pewter City" textAlignment="CENTER">
+         <font>
+            <Font name="Helvetica" size="12.0" />
+         </font></Text>
+      <Text layoutX="716.0" layoutY="136.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Cerulean  City" textAlignment="CENTER">
+         <font>
+            <Font name="Helvetica" size="12.0" />
+         </font></Text>
+      <Text layoutX="1083.0" layoutY="269.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Lavender Town" textAlignment="CENTER">
+         <font>
+            <Font name="Helvetica" size="12.0" />
+         </font></Text>
+      <Text layoutX="716.0" layoutY="286.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Saffron  City" textAlignment="CENTER">
+         <font>
+            <Font name="Helvetica" size="12.0" />
+         </font></Text>
+      <Text layoutX="475.0" layoutY="294.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Caladon  City" textAlignment="CENTER">
+         <font>
+            <Font name="Helvetica" size="12.0" />
+         </font></Text>
+      <Text layoutX="724.0" layoutY="421.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Vermillion City" textAlignment="CENTER">
+         <font>
+            <Font name="Helvetica" size="12.0" />
+         </font></Text>
+      <Text layoutX="707.0" layoutY="433.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Revive 1 Pokemon or" textAlignment="CENTER">
+         <font>
+            <Font name="Helvetica" size="12.0" />
+         </font></Text>
+      <Text layoutX="714.0" layoutY="448.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Roll a 1 or 6 for All" textAlignment="CENTER">
+         <font>
+            <Font name="Helvetica" size="12.0" />
+         </font></Text>
+      <Text layoutX="697.0" layoutY="151.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Revive 1 Pokemon or" textAlignment="CENTER">
+         <font>
+            <Font name="Helvetica" size="12.0" />
+         </font></Text>
+      <Text layoutX="704.0" layoutY="166.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Roll a 1 or 6 for All" textAlignment="CENTER">
+         <font>
+            <Font name="Helvetica" size="12.0" />
+         </font></Text>
+      <Text layoutX="594.0" layoutY="661.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Fuchsia City" textAlignment="CENTER">
+         <font>
+            <Font name="Helvetica" size="12.0" />
+         </font></Text>
+      <Text layoutX="300.0" layoutY="674.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Cinnabar Island" textAlignment="CENTER">
+         <font>
+            <Font name="Helvetica" size="12.0" />
+         </font></Text>
+      <Text layoutX="292.0" layoutY="687.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="Draw 2 Item Cards" textAlignment="CENTER">
+         <font>
+            <Font name="Helvetica" size="12.0" />
+         </font></Text>
+      <Text layoutX="291.0" layoutY="699.0" mouseTransparent="true" strokeType="OUTSIDE" strokeWidth="0.0" text="20 CP to Advance" textAlignment="CENTER">
+         <font>
+            <Font name="Helvetica" size="12.0" />
+         </font></Text>
       <Pane fx:id="diePane" layoutX="1254.0" layoutY="28.0">
          <children>
             <Rectangle fx:id="dieRectangle" arcHeight="15.0" arcWidth="15.0" height="60.0" stroke="BLACK" strokeType="INSIDE" width="60.0">
@@ -455,5 +520,10 @@
             <Image url="@../../Resources/pokeballdark.png" />
          </image>
       </ImageView>
+      <Pane layoutX="767.0" layoutY="594.0" prefHeight="200.0" prefWidth="577.0">
+         <children>
+            <HBox fx:id="itemHBox" alignment="CENTER" prefHeight="200.0" prefWidth="577.0" />
+            <TilePane fx:id="itemTilePane" prefColumns="15" prefHeight="200.0" prefRows="1" prefTileWidth="50.0" />
+         </children></Pane>
    </children>
 </AnchorPane>
