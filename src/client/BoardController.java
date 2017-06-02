@@ -666,10 +666,18 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		isCatching=true;
 		
 		//testing item cards
-		for(int i = 0; i<7;i++){
+		for(int i = 0; i<=11;i++){
 			System.out.println("Made card "+(i+1));
-			ItemCard itemCard = new ItemCard(GREATBALL);
+			ItemCard itemCard = new ItemCard(i);
+			itemCard.setId("item"+i);
 			itemTilePane.getChildren().add(itemCard);
+			itemCard.setOnMouseClicked(new EventHandler<MouseEvent>(){
+				@Override
+				public void handle(MouseEvent event) {
+					System.out.println("Clicked a card" + event.getSource() + " type: "+itemCard.cardType);
+					
+				}		
+			});
 		}
 		
 //		for (int i = 0; i < 7; i++) {
