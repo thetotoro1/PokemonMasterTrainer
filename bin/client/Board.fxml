@@ -530,7 +530,7 @@
          <children>
             <StackPane fx:id="itemTrash" layoutX="250.0" layoutY="265.0">
                <children>
-                  <Circle fill="#ff1f1f" onMouseClicked="#removeItem" radius="45.0" stroke="BLACK" strokeType="INSIDE" />
+                  <Circle fill="#ff1f1f" onMouseClicked="#trashClicked" radius="45.0" stroke="BLACK" strokeType="INSIDE" />
                   <ImageView fitHeight="70.0" fitWidth="54.0" mouseTransparent="true" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@../../Resources/Item/Discard.png" />

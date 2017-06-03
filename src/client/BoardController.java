@@ -539,6 +539,7 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 	
 	private ArrayList <PokeChip> myPokemon = new ArrayList<PokeChip>();
 	private ArrayList <PokeChip> theirPokemon = new ArrayList<PokeChip>();
+	private ArrayList <ItemCard> myItems = new ArrayList<ItemCard>();
 	private int[] myItemCards = {0,0,0,0,0,0,0,0,0,0,0,0};
 	private int itemCardCount = 0;
 	private int currentItem;
@@ -690,17 +691,18 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		isCatching=true;
 		
 		//testing item cards
-		for(int i = 0; i<=11;i++){
+		for(int i = 6; i<=11;i++){
 			System.out.println("Made card "+(i+1));
-			ItemCard itemCard = new ItemCard(i);
+			ItemCard itemCard = new ItemCard(i%3);
 			//itemCard.setId("item"+i);
+			myItems.add(itemCard);
 			itemTilePane.getChildren().add(itemCard);
 			itemCardCount += 1;
 			itemCard.setOnMouseClicked(new EventHandler<MouseEvent>(){
 				@Override
 				public void handle(MouseEvent event) {
 					if(itemCard.isUp){
-					System.out.println("Clicked a card" + event.getSource() + " type: "+itemCard.cardType);
+					//System.out.println("Clicked a card" + event.getSource() + " type: "+itemCard.cardType);
 					openItemCard(itemCard.cardType);
 					}
 				}		
@@ -802,6 +804,7 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 	@FXML
 	public void exitItemPane(){
 		itemPane.setLayoutY(1000);
+		itemPane.setVisible(false);
 	}
 	
 	protected void openItemCard(int cardType) {
@@ -815,7 +818,8 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		itemImage.setFitHeight(150);
 		itemReviveButton.setVisible(false);
 		currentItem = cardType;
-		if(itemCardCount>7){
+		System.out.println("item count: "+myItems.size());
+		if(myItems.size()>7){
 			itemTrash.setVisible(true);
 		}
 		else{
@@ -937,14 +941,51 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			itemPane.setVisible(true);
 	}
 
 	@FXML
-	public void removeItem(){
-		System.out.println("Removing item");
+	public void trashClicked(){
+		//deleting card and checking if there is more
 		boolean foundCard = false;
-		for (int i = 0; i < itemTilePane.getChildren().size() && !foundCard; i++) {
-			System.out.println(""+itemTilePane.getChildren().get(i));
+		boolean moreOfThatItem = false;
+		int spotItemWasFound = 0;
+		for (int i = 0; i < itemTilePane.getChildren().size(); i++) {
+			if(foundCard&&currentItem==myItems.get(i).cardType){
+				moreOfThatItem = true;
+			}
+			if(currentItem==myItems.get(i).cardType&&!foundCard){
+				itemTilePane.getChildren().remove(i);
+				myItems.remove(i);
+				foundCard = true;
+				spotItemWasFound = i;
+			}
+			
+			
+			
+		}
+		//if not more cards of that type go to next card type
+		if(moreOfThatItem){
+			//System.out.println("more of the deleted item");
+			openItemCard(myItems.get(spotItemWasFound).cardType);
+		}
+		else{
+			if(myItems.size()==0){
+				//System.out.println("No items left");
+				exitItemPane();
+			}
+//			else if(spotItemWasFound==0&&myItems.size()==1){
+//				System.out.println("Only 1 item");
+//				openItemCard(myItems.get(spotItemWasFound).cardType);
+//			}
+			else if(spotItemWasFound==myItems.size()){
+				//System.out.println("last item deleted, no more if this type, change to first card");
+				openItemCard(myItems.get(0).cardType);
+			}
+			else{
+				//System.out.println("no more cards of this type, changing to next card");
+				openItemCard(myItems.get(spotItemWasFound).cardType);
+			}
 		}
 	}
 	
