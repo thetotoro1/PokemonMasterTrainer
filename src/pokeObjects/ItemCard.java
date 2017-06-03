@@ -28,6 +28,7 @@ public class ItemCard extends Pane implements GameConstants{
 	final int spacing = 110;
 	public int cardType;
 	public Pane cardPane;
+	public Boolean isUp = false;
 	
 	public ItemCard(int cardType) {
 		//width / height of pane
@@ -172,7 +173,7 @@ public class ItemCard extends Pane implements GameConstants{
 				break;
 			case POKEDOLL:
 				input = new FileInputStream("resources/Item/Pokedoll.png");
-				image = new Image(input,imageSize,imageSize,true,true);
+				image = new Image(input,60,60,true,true);
 				
 				imageView.setImage(image);
 				imageView.setLayoutX(10);
@@ -198,6 +199,7 @@ public class ItemCard extends Pane implements GameConstants{
 			@Override
 			public void handle(MouseEvent t) {
 				cardPane.setLayoutY(0);
+				isUp = true;
 			}		
 		});
 		
@@ -205,6 +207,7 @@ public class ItemCard extends Pane implements GameConstants{
 			@Override
 			public void handle(MouseEvent t) {
 				cardPane.setLayoutY(spacing);
+				isUp = false;
 			}	
 		});
 		

@@ -20,7 +20,10 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Labeled;
 import javafx.scene.control.ScrollPane;
@@ -31,6 +34,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.TilePane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -40,6 +44,9 @@ import javafx.scene.paint.Stop;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
+import javafx.scene.text.TextAlignment;
 import javafx.util.Duration;
 import pokeObjects.ItemCard;
 import pokeObjects.Player;
@@ -497,6 +504,21 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 	@FXML
 	private TilePane itemTilePane;
 	
+	@FXML
+	private Pane itemPane;
+	@FXML
+	private Label itemName;
+	@FXML
+	private Label itemDescription;
+	@FXML
+	private ImageView itemImage;
+	@FXML
+	private Label itemAttack;
+	@FXML
+	private Button itemReviveButton;
+	@FXML
+	private StackPane itemTrash;
+	
 	static private Spot[] spots = new Spot[76];
 	
 
@@ -518,7 +540,9 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 	private ArrayList <PokeChip> myPokemon = new ArrayList<PokeChip>();
 	private ArrayList <PokeChip> theirPokemon = new ArrayList<PokeChip>();
 	private int[] myItemCards = {0,0,0,0,0,0,0,0,0,0,0,0};
-
+	private int itemCardCount = 0;
+	private int currentItem;
+	
 	int pokeballIndex = 0;
 	
 	int pokeballColor = PINK;
@@ -669,13 +693,16 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		for(int i = 0; i<=11;i++){
 			System.out.println("Made card "+(i+1));
 			ItemCard itemCard = new ItemCard(i);
-			itemCard.setId("item"+i);
+			//itemCard.setId("item"+i);
 			itemTilePane.getChildren().add(itemCard);
+			itemCardCount += 1;
 			itemCard.setOnMouseClicked(new EventHandler<MouseEvent>(){
 				@Override
 				public void handle(MouseEvent event) {
+					if(itemCard.isUp){
 					System.out.println("Clicked a card" + event.getSource() + " type: "+itemCard.cardType);
-					
+					openItemCard(itemCard.cardType);
+					}
 				}		
 			});
 		}
@@ -770,6 +797,160 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 //		beltPane.getChildren().addAll(beltRectangle,beltImage);
 //		anchorPane.getChildren().add(beltPane);
 		
+	}
+	
+	@FXML
+	public void exitItemPane(){
+		itemPane.setLayoutY(1000);
+	}
+	
+	protected void openItemCard(int cardType) {
+		double imageSize = 250;
+		double width = 200;
+		itemPane.setLayoutX(555);
+		itemPane.setLayoutY(220);
+		itemImage.setLayoutX(45);
+		itemImage.setLayoutY(70);
+		itemImage.setFitWidth(160);
+		itemImage.setFitHeight(150);
+		itemReviveButton.setVisible(false);
+		currentItem = cardType;
+		if(itemCardCount>7){
+			itemTrash.setVisible(true);
+		}
+		else{
+			itemTrash.setVisible(false);
+		}
+
+		//for card image
+		itemImage.setVisible(true);
+			FileInputStream input;
+			Image image;
+			
+			itemAttack.setText("");
+			
+			//label for attacks
+			Label attackLabel;
+			
+			try{
+				switch (cardType) {
+				case GREATBALL:
+					input = new FileInputStream("resources/Great Ball.png");
+					image = new Image(input,imageSize,imageSize,false,true);
+					itemImage.setImage(image);
+
+					itemName.setText("Great Ball");
+					break;
+				case ULTRABALL:
+					input = new FileInputStream("resources/Ultra Ball.png");
+					image = new Image(input,imageSize,imageSize,false,true);
+					itemImage.setImage(image);
+					
+					itemName.setText("Ultra Ball");
+					break;
+				case MASTERBALL:
+					input = new FileInputStream("resources/Master Ball.png");
+					image = new Image(input,imageSize,imageSize,false,true);
+					itemImage.setImage(image);
+					
+					itemName.setText("Master Ball");
+					break;
+				case ATTACK1:
+					itemImage.setVisible(false);
+
+					itemAttack.setText("+1");
+					
+					itemName.setText("Attack\nBonus");
+
+					break;
+				case ATTACK2:
+					itemImage.setVisible(false);
+
+					itemAttack.setText("+2");
+					itemName.setText("Attack\nBonus");
+
+					
+					break;
+				case ATTACK3:
+					itemImage.setVisible(false);
+
+					itemAttack.setText("+3");
+					
+					itemName.setText("Attack\nBonus");
+
+					
+					break;
+				case ATTACK4:
+					itemImage.setVisible(false);
+
+					itemAttack.setText("+4");
+					
+					itemName.setText("Attack\nBonus");
+
+					
+					break;
+				case ATTACK5:
+					itemImage.setVisible(false);
+
+					itemAttack.setText("+5");
+					
+					itemName.setText("Attack\nBonus");
+
+					break;
+				case TIMEMACHINE:
+					input = new FileInputStream("resources/Item/Time Machine.png");
+					image = new Image(input,imageSize-10,imageSize-10,false,true);
+					itemImage.setImage(image);
+					itemName.setText("Time Machine");
+					break;
+				case FLY:
+					input = new FileInputStream("resources/Item/Fly.png");
+					image = new Image(input,imageSize+100,imageSize-10,true,true);
+					itemImage.setFitHeight(260);
+					itemImage.setFitWidth(200);
+					itemImage.setImage(image);
+					itemImage.setLayoutX(20);
+					itemName.setText("Fly");				
+					break;
+				case POTION:
+					itemReviveButton.setVisible(true);
+					input = new FileInputStream("resources/Item/Revive.png");
+					image = new Image(input,imageSize,imageSize,true,true);
+					itemImage.setLayoutX(75);
+					itemImage.setImage(image);
+					itemName.setText("Revive");
+					break;
+				case POKEDOLL:
+					input = new FileInputStream("resources/Item/Pokedoll.png");
+					image = new Image(input,350,350,true,true);
+					//itemImage.setLayoutX(20);
+					//itemImage.setL
+					itemImage.setImage(image);
+					
+					itemName.setText("Pok"+pokemonE+"doll");
+					break;
+		
+				default:
+					break;
+				}
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	}
+
+	@FXML
+	public void removeItem(){
+		System.out.println("Removing item");
+		boolean foundCard = false;
+		for (int i = 0; i < itemTilePane.getChildren().size() && !foundCard; i++) {
+			System.out.println(""+itemTilePane.getChildren().get(i));
+		}
+	}
+	
+	@FXML
+	public void useRevive(){
+		System.out.println("Using revive");
 	}
 	
 	//checks which action is landed on
