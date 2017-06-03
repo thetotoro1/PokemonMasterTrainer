@@ -690,8 +690,13 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		isCatching=true;
 		
 		//testing item cards
-		for(int i = 12; i>=0;i--){			
-			receiveItemCard(i%3);
+		for(int i = 10; i>=0;i--){			
+			receiveItemCard(i);
+		}
+		
+		//testing pokemon pane
+		for(int i = 10; i>=1;i--){			
+			receivePokemon(i);
 		}
 		
 //		for (int i = 0; i < 7; i++) {
@@ -804,7 +809,13 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 			for(int i = 0; i<=currentListSize-2 && !itemPlaced;i++){
 				// myitems[i] <= cardType <= myitems[i]
 				//System.out.println(""+myItems.get(i).cardType+" <= "+cardType+" <= "+myItems.get(i+1).cardType);
-				if(myItems.get(i).cardType <= cardType && cardType <= myItems.get(i+1).cardType){
+				if(myItems.get(i).cardType > cardType){
+					myItems.add(i, itemCard);
+					itemTilePane.getChildren().add(i,itemCard);
+					itemPlaced=true;
+					
+				}
+				else if(myItems.get(i).cardType <= cardType && cardType <= myItems.get(i+1).cardType){
 					//System.out.println("found spot, index: "+i);
 					myItems.add(i+1, itemCard);
 					itemTilePane.getChildren().add(i+1, itemCard);;			
@@ -847,6 +858,103 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		
 	}
 	
+	public void receivePokemon(PokeChip pokemon){
+		int dexNumber = pokemon.dexNumber;
+		//keep pokemon in the same order
+				if(myPokemon.size()>=2){
+					//System.out.println("item amount: "+myPokemon.size()+" item number: "+dexNumber);
+					int currentListSize = myPokemon.size();
+					boolean itemPlaced = false;
+					for(int i = 0; i<=currentListSize-2 && !itemPlaced;i++){
+						// myPokemon[i] <= dexNumber <= myPokemon[i]
+						//System.out.println(""+myPokemon.get(i).dexNumber+" <= "+dexNumber+" <= "+myPokemon.get(i+1).dexNumber);
+						if(myPokemon.get(i).dexNumber > dexNumber){
+							myPokemon.add(i, pokemon);
+							beltTilePane.getChildren().add(i,pokemon.anchorPane);
+							itemPlaced=true;
+							
+						}
+						else if(myPokemon.get(i).dexNumber <= dexNumber && dexNumber <= myPokemon.get(i+1).dexNumber){
+							//System.out.println("found spot, index: "+i);
+							myPokemon.add(i+1, pokemon);
+							beltTilePane.getChildren().add(i+1, pokemon.anchorPane);			
+							itemPlaced=true;			
+						}
+						else if(i==myPokemon.size()-2){
+							//System.out.println("End of list, placing at end");
+							myPokemon.add(pokemon);
+							beltTilePane.getChildren().add(pokemon.anchorPane);		
+							itemPlaced=true;
+						}
+
+					}
+				
+				}
+				else if(myPokemon.size()==1){
+					if(dexNumber<=myPokemon.get(0).dexNumber){
+						myPokemon.add(0,pokemon);
+						beltTilePane.getChildren().add(0, pokemon.anchorPane);
+					}
+					else{
+						myPokemon.add(pokemon);
+						beltTilePane.getChildren().add(pokemon.anchorPane);
+					}
+				}
+				else{
+					myPokemon.add(pokemon);
+					beltTilePane.getChildren().add(pokemon.anchorPane);
+				}
+	}
+	
+	public void receivePokemon(int dexNumber){
+		PokeChip pokemon = new PokeChip(dexNumber);
+
+		//keep pokemon in the same order
+		if(myPokemon.size()>=2){
+			//System.out.println("item amount: "+myPokemon.size()+" item number: "+dexNumber);
+			int currentListSize = myPokemon.size();
+			boolean itemPlaced = false;
+			for(int i = 0; i<=currentListSize-2 && !itemPlaced;i++){
+				// myPokemon[i] <= dexNumber <= myPokemon[i]
+				//System.out.println(""+myPokemon.get(i).dexNumber+" <= "+dexNumber+" <= "+myPokemon.get(i+1).dexNumber);
+				if(myPokemon.get(i).dexNumber > dexNumber){
+					myPokemon.add(i, pokemon);
+					beltTilePane.getChildren().add(i,pokemon.anchorPane);
+					itemPlaced=true;
+					
+				}
+				else if(myPokemon.get(i).dexNumber <= dexNumber && dexNumber <= myPokemon.get(i+1).dexNumber){
+					//System.out.println("found spot, index: "+i);
+					myPokemon.add(i+1, pokemon);
+					beltTilePane.getChildren().add(i+1, pokemon.anchorPane);			
+					itemPlaced=true;			
+				}
+				else if(i==myPokemon.size()-2){
+					//System.out.println("End of list, placing at end");
+					myPokemon.add(pokemon);
+					beltTilePane.getChildren().add(pokemon.anchorPane);		
+					itemPlaced=true;
+				}
+
+			}
+		
+		}
+		else if(myPokemon.size()==1){
+			if(dexNumber<=myPokemon.get(0).dexNumber){
+				myPokemon.add(0,pokemon);
+				beltTilePane.getChildren().add(0, pokemon.anchorPane);
+			}
+			else{
+				myPokemon.add(pokemon);
+				beltTilePane.getChildren().add(pokemon.anchorPane);
+			}
+		}
+		else{
+			myPokemon.add(pokemon);
+			beltTilePane.getChildren().add(pokemon.anchorPane);
+		}
+	}
+	
 	@FXML
 	public void exitItemPane(){
 		itemPane.setLayoutY(1000);
@@ -871,6 +979,7 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		else{
 			itemTrash.setVisible(false);
 		}
+		itemPane.toFront();
 
 		//for card image
 		itemImage.setVisible(true);
@@ -1043,9 +1152,9 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 	//checks which action is landed on
 	private void checkSpotAction(int spotNumber) {
 			if(spots[spotNumber].getAction()==catchPokemon){
-				System.out.println("Landed on a catch pokemon spot");
+				//System.out.println("Landed on a catch pokemon spot");
 				if(spots[spotNumber].pokemon==null){
-					System.out.println("spot empty filling with pokemon");
+					//System.out.println("spot empty filling with pokemon");
 
 					//send catchpokemon action to server with color.
 					
@@ -1056,7 +1165,7 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 					
 				}
 				else{
-					System.out.println("pokemon is here. trying to catch");
+					//System.out.println("pokemon is here. trying to catch");
 				}
 					openPokeballPane(spots[players[player].currentSpot].pokemon);
 				
@@ -1622,6 +1731,7 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		
 		FileInputStream input;
 
+		//set pokeball above die
 		switch (randomNumber) {
 		case 1:
 			if(pokeballIndex==0){
@@ -1888,10 +1998,8 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 					+ "Click anywhere to\n"
 					+ "continue.");
 			
-			//add pokemon from spot to belt.
-			myPokemon.add(spots[players[player].currentSpot].pokemon);
-			beltTilePane.getChildren().add(myPokemon.get(myPokemon.size()-1).anchorPane);
-			
+			receivePokemon(spots[players[player].currentSpot].pokemon);
+			spots[players[player].currentSpot].pokemon = null;
 			
 			pokeballPaneExit = true;
 			
@@ -2110,7 +2218,7 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 	
 	//show/hide pokebelt
 	public void showMyPokemon(){
-		System.out.println("showing pokemon");
+		//System.out.println("showing pokemon");
 		beltPane.toFront();
 		beltPane.setLayoutY(500);
 	}
