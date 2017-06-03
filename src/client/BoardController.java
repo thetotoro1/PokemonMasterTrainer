@@ -541,7 +541,6 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 	private ArrayList <PokeChip> theirPokemon = new ArrayList<PokeChip>();
 	private ArrayList <ItemCard> myItems = new ArrayList<ItemCard>();
 	private int[] myItemCards = {0,0,0,0,0,0,0,0,0,0,0,0};
-	private int itemCardCount = 0;
 	private int currentItem;
 	
 	int pokeballIndex = 0;
@@ -679,9 +678,9 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		isMoving=true;
 
 		//give some pokeballs
-		myItemCards[GREATBALL]=3;
-		myItemCards[ULTRABALL]=0;
-		myItemCards[MASTERBALL]=4;
+//		myItemCards[GREATBALL]=3;
+//		myItemCards[ULTRABALL]=0;
+//		myItemCards[MASTERBALL]=4;
 		
 		//test pokeball pane
 		//PokeChip pokeballPokemon = new PokeChip(149);
@@ -691,22 +690,8 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		isCatching=true;
 		
 		//testing item cards
-		for(int i = 6; i<=11;i++){
-			System.out.println("Made card "+(i+1));
-			ItemCard itemCard = new ItemCard(i%3);
-			//itemCard.setId("item"+i);
-			myItems.add(itemCard);
-			itemTilePane.getChildren().add(itemCard);
-			itemCardCount += 1;
-			itemCard.setOnMouseClicked(new EventHandler<MouseEvent>(){
-				@Override
-				public void handle(MouseEvent event) {
-					if(itemCard.isUp){
-					//System.out.println("Clicked a card" + event.getSource() + " type: "+itemCard.cardType);
-					openItemCard(itemCard.cardType);
-					}
-				}		
-			});
+		for(int i = 12; i>=0;i--){			
+			receiveItemCard(i%3);
 		}
 		
 //		for (int i = 0; i < 7; i++) {
@@ -801,6 +786,67 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		
 	}
 	
+	
+	public void receiveItemCard(int cardType){
+		
+		myItemCards[cardType]++;
+		
+		//System.out.println("received a card");
+		ItemCard itemCard = new ItemCard(cardType);
+		
+
+		
+		//keep cards in the same order
+		if(myItems.size()>=2){
+			//System.out.println("item amount: "+myItems.size()+" item number: "+cardType);
+			int currentListSize = myItems.size();
+			boolean itemPlaced = false;
+			for(int i = 0; i<=currentListSize-2 && !itemPlaced;i++){
+				// myitems[i] <= cardType <= myitems[i]
+				//System.out.println(""+myItems.get(i).cardType+" <= "+cardType+" <= "+myItems.get(i+1).cardType);
+				if(myItems.get(i).cardType <= cardType && cardType <= myItems.get(i+1).cardType){
+					//System.out.println("found spot, index: "+i);
+					myItems.add(i+1, itemCard);
+					itemTilePane.getChildren().add(i+1, itemCard);;			
+					itemPlaced=true;			
+				}
+				else if(i==myItems.size()-2){
+					//System.out.println("End of list, placing at end");
+					myItems.add(itemCard);
+					itemTilePane.getChildren().add(itemCard);		
+					itemPlaced=true;
+				}
+
+			}
+		
+		}
+		else if(myItems.size()==1){
+			if(cardType<=myItems.get(0).cardType){
+				myItems.add(0,itemCard);
+				itemTilePane.getChildren().add(0, itemCard);
+			}
+			else{
+				myItems.add(itemCard);
+				itemTilePane.getChildren().add(itemCard);
+			}
+		}
+		else{
+			myItems.add(itemCard);
+			itemTilePane.getChildren().add(itemCard);
+		}
+		
+		itemCard.setOnMouseClicked(new EventHandler<MouseEvent>(){
+			@Override
+			public void handle(MouseEvent event) {
+				if(itemCard.isUp){
+				openItemCard(itemCard.cardType);
+				}
+			}		
+		});
+		
+		
+	}
+	
 	@FXML
 	public void exitItemPane(){
 		itemPane.setLayoutY(1000);
@@ -818,7 +864,7 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		itemImage.setFitHeight(150);
 		itemReviveButton.setVisible(false);
 		currentItem = cardType;
-		System.out.println("item count: "+myItems.size());
+		//System.out.println("item count: "+myItems.size());
 		if(myItems.size()>7){
 			itemTrash.setVisible(true);
 		}
@@ -967,7 +1013,7 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		//if not more cards of that type go to next card type
 		if(moreOfThatItem){
 			//System.out.println("more of the deleted item");
-			openItemCard(myItems.get(spotItemWasFound).cardType);
+			openItemCard(currentItem);
 		}
 		else{
 			if(myItems.size()==0){
@@ -1524,8 +1570,8 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		if(isCatching){
 			clickedSpot.consume();
 			String areaClicked = clickedSpot.getTarget().toString();
-			System.out.println("spot clicked " + areaClicked);
-			System.out.println("current ball index " + pokeballIndex);
+			//System.out.println("spot clicked " + areaClicked);
+			//System.out.println("current ball index " + pokeballIndex);
 			
 			switch (pokeballIndex) {
 			case 0:
@@ -1836,7 +1882,7 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		//check to see if that die is opaque or not
 		if(pokeballDice[randomNumber-1].getOpacity()>=1){
 			//catch the pokemon 
-			System.out.println("Pokemon Caught");
+			//System.out.println("Pokemon Caught");
 			pokeballMessage.setText("You caught a\n"
 					+ spots[players[player].currentSpot].pokemon.name+"\n"
 					+ "Click anywhere to\n"
@@ -1876,7 +1922,7 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 	@FXML
 	private void exitPokeballPane(){
 		if(pokeballPaneExit){
-		System.out.println("Exiting pokemon catching pane");
+		//System.out.println("Exiting pokemon catching pane");
 		pokeballPane.setLayoutY(1000);
 		}
 	}
@@ -2046,16 +2092,6 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		for (int i = 0; i < spots.length; i++) {
 			spots[i].highlightOff();
 		}
-	}
-	
-	//receive item number from server deck
-	public static void receiveItem(int itemType){
-		
-		//add indicating integer to itemCard list
-		players[player].itemCards.add(itemType);
-		
-		//TO-DO create and add card to card display
-		
 	}
 		
 	//add/remove pokemon from board

@@ -42,7 +42,7 @@ public class Client extends Application implements GameConstants{
 	    primaryStage.show();
 	    
 	    //test receiving item from server
-	    controller.receiveItem(POTION);
+	    //controller.receiveItemCard(POTION);
 	    
 	    //test receiving pokemon location from server
 	    controller.addPokemon(4, 3);
