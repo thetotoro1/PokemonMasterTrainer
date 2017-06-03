@@ -413,6 +413,8 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 	
 	@FXML
 	private Pane diePane;
+	@FXML
+	private Button dieButton;
 	
 	@FXML
 	private Rectangle dieRectangle;
@@ -515,7 +517,7 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 	@FXML
 	private Label itemAttack;
 	@FXML
-	private Button itemReviveButton;
+	private Button itemButton;
 	@FXML
 	private StackPane itemTrash;
 	
@@ -529,6 +531,8 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 	static Player[] players;
 
 	static int player;
+	
+	private boolean isTurn;
 
 	private boolean pastCerulean = false;
 	private boolean isCatching = false;
@@ -552,6 +556,8 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 	private boolean hasUsedTimeMachine = false;
 	private boolean pokeballPaneExit = false;
 
+	private boolean hasRolled;
+	private boolean timeMachine = false;
 	
 	
 
@@ -666,13 +672,13 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		setSpot(12,2);
 		
 		//set die
-		setDie(1);
+		//setDie(1);
 		
 		// this is set through when you accept moving past cerulean on the board.
 		pastCerulean= true;
 		
 		//test spots highlighter
-		highlightSpotsOn(6);
+		//highlightSpotsOn(6);
 		
 		//TO-DO this is set after a roll
 		isMoving=true;
@@ -791,6 +797,46 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		
 	}
 	
+	public void turnStart(){
+		
+	}
+	
+	public void showDie(){
+		diePane.setVisible(true);
+		dieButton.setVisible(true);
+		dieButton.setFont(Font.font (20));
+		hasRolled = false;
+	}
+	
+	@FXML
+	public void dieButtonClicked(){
+		if(!timeMachine){
+			//send button clicked to server
+			
+			//receive die roll from server
+			int numberRolled = 3;
+			hasRolled = true;
+			setDie(numberRolled);
+			highlightSpotsOn(3);
+			
+			if(myItemCards[TIMEMACHINE]>0){
+				dieButton.setFont(Font.font(14));
+				dieButton.setText("Use Time\nMachine");
+				timeMachine = true;
+				if(itemPane.isVisible()){
+					if(itemName.getText().equals("Time Machine")){
+						openItemCard(TIMEMACHINE);
+					}
+				}
+			}
+			else{
+				dieButton.setVisible(false);
+			}
+		}
+		else{
+			openItemCard(TIMEMACHINE);
+		}
+	}
 	
 	public void receiveItemCard(int cardType){
 		
@@ -970,8 +1016,11 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		itemImage.setLayoutY(70);
 		itemImage.setFitWidth(160);
 		itemImage.setFitHeight(150);
-		itemReviveButton.setVisible(false);
+		itemButton.setVisible(false);
 		currentItem = cardType;
+		
+		
+		
 		//System.out.println("item count: "+myItems.size());
 		if(myItems.size()>7){
 			itemTrash.setVisible(true);
@@ -1057,10 +1106,17 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 
 					break;
 				case TIMEMACHINE:
+
 					input = new FileInputStream("resources/Item/Time Machine.png");
 					image = new Image(input,imageSize-10,imageSize-10,false,true);
 					itemImage.setImage(image);
 					itemName.setText("Time Machine");
+					
+					if(timeMachine){
+						itemButton.setVisible(true);
+						itemButton.setText("Use Time Machine");
+						
+					}
 					break;
 				case FLY:
 					input = new FileInputStream("resources/Item/Fly.png");
@@ -1072,7 +1128,9 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 					itemName.setText("Fly");				
 					break;
 				case POTION:
-					itemReviveButton.setVisible(true);
+					itemButton.setVisible(true);
+					itemButton.setText("Use Revive");
+
 					input = new FileInputStream("resources/Item/Revive.png");
 					image = new Image(input,imageSize,imageSize,true,true);
 					itemImage.setLayoutX(75);
@@ -1110,6 +1168,8 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 				moreOfThatItem = true;
 			}
 			if(currentItem==myItems.get(i).cardType&&!foundCard){
+				
+				myItemCards[i]--;
 				itemTilePane.getChildren().remove(i);
 				myItems.remove(i);
 				foundCard = true;
@@ -1145,8 +1205,16 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 	}
 	
 	@FXML
-	public void useRevive(){
-		System.out.println("Using revive");
+	public void useItem(){
+		if(itemName.getText().equals("Revive")){
+			//use revive
+			System.out.println("Using revive");
+		}
+		else{
+			//use time machine
+			System.out.println("using timemachine");
+
+		}
 	}
 	
 	//checks which action is landed on
@@ -1159,9 +1227,10 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 					//send catchpokemon action to server with color.
 					
 					//receive which pokemon from server. add pokemon to board
+					int dexNumber = 79;
 					
 					//testing pokemon
-					addPokemon(79, 6);
+					addPokemon(dexNumber, spotNumber);
 					
 				}
 				else{
@@ -1281,7 +1350,7 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 				setSpot(spotNumber, player);
 				players[player].currentSpot = spotNumber;
 				hightlightSpotsOff();
-				
+				dieButton.setVisible(false);
 				if(spotNumber>=23){
 					pastCerulean = true;
 				}
