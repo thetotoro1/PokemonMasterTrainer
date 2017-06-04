@@ -557,7 +557,8 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 	private boolean pokeballPaneExit = false;
 
 	private boolean hasRolled;
-	private boolean timeMachine = false;
+
+	private int currentTimeMachineUse;
 	
 	
 
@@ -701,9 +702,9 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		}
 		
 		//testing pokemon pane
-		for(int i = 10; i>=1;i--){			
-			receivePokemon(i);
-		}
+//		for(int i = 10; i>=1;i--){			
+//			receivePokemon(i);
+//		}
 		
 //		for (int i = 0; i < 7; i++) {
 //			Rectangle itemCard = new Rectangle(50, 90);
@@ -810,7 +811,7 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 	
 	@FXML
 	public void dieButtonClicked(){
-		if(!timeMachine){
+		if(currentTimeMachineUse==0){
 			//send button clicked to server
 			
 			//receive die roll from server
@@ -820,9 +821,9 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 			highlightSpotsOn(3);
 			
 			if(myItemCards[TIMEMACHINE]>0){
+				currentTimeMachineUse = MOVEMENT;
 				dieButton.setFont(Font.font(14));
 				dieButton.setText("Use Time\nMachine");
-				timeMachine = true;
 				if(itemPane.isVisible()){
 					if(itemName.getText().equals("Time Machine")){
 						openItemCard(TIMEMACHINE);
@@ -1112,7 +1113,7 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 					itemImage.setImage(image);
 					itemName.setText("Time Machine");
 					
-					if(timeMachine){
+					if(currentTimeMachineUse!=0){
 						itemButton.setVisible(true);
 						itemButton.setText("Use Time Machine");
 						
@@ -1160,6 +1161,7 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 	@FXML
 	public void trashClicked(){
 		//deleting card and checking if there is more
+		//System.out.println("current item is: "+currentItem);
 		boolean foundCard = false;
 		boolean moreOfThatItem = false;
 		int spotItemWasFound = 0;
@@ -1185,6 +1187,11 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 			openItemCard(currentItem);
 		}
 		else{
+			//System.out.println("no more of that item");
+			//hide timemachine button if no more cards
+			if(currentItem==TIMEMACHINE){
+				dieButton.setVisible(false);
+			}
 			if(myItems.size()==0){
 				//System.out.println("No items left");
 				exitItemPane();
@@ -1200,10 +1207,13 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 			else{
 				//System.out.println("no more cards of this type, changing to next card");
 				openItemCard(myItems.get(spotItemWasFound).cardType);
+				
 			}
+			
 		}
 	}
-	
+
+	//use revive or timemachine
 	@FXML
 	public void useItem(){
 		if(itemName.getText().equals("Revive")){
@@ -1213,7 +1223,20 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		else{
 			//use time machine
 			System.out.println("using timemachine");
-
+			
+			if(currentTimeMachineUse==MOVEMENT){
+				hightlightSpotsOff();
+				//request new roll from server
+				
+				//get new roll from server
+				int numberRolled = 6;
+				setDie(numberRolled);
+				highlightSpotsOn(numberRolled);
+				currentTimeMachineUse = NONE;
+				dieButton.setVisible(false);
+				//itemButton.setVisible(false);
+				trashClicked();
+			}
 		}
 	}
 	
