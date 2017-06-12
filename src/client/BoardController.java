@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.URL;
+import java.nio.channels.ClosedByInterruptException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -16,6 +17,8 @@ import java.util.concurrent.TimeUnit;
 
 import javafx.animation.Animation;
 import javafx.animation.Transition;
+import javafx.concurrent.Task;
+import javafx.concurrent.WorkerStateEvent;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -1237,6 +1240,23 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 				//itemButton.setVisible(false);
 				trashClicked();
 			}
+			else if(currentTimeMachineUse==CATCHING){
+				pokeballPane.setLayoutX(425);
+				pokeballPane.setLayoutY(150);
+				pokeballPane.toFront();
+				
+				pokeball1.setVisible(false);
+				pokeball2.setVisible(false);
+				pokeball3.setVisible(false);
+				pokeball4.setVisible(false);
+				pokeball5.setVisible(false);
+				pokeball6.setVisible(false);
+				
+				
+				
+				rollToCatch();
+				exitItemPane();
+			}
 		}
 	}
 	
@@ -1250,7 +1270,7 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 					//send catchpokemon action to server with color.
 					
 					//receive which pokemon from server. add pokemon to board
-					int dexNumber = 79;
+					int dexNumber = 151;
 					
 					//testing pokemon
 					addPokemon(dexNumber, spotNumber);
@@ -1529,11 +1549,11 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 			//set up switch dice array
 			switch (pokeballColor) {
 			case PINK:
-				System.out.println("in pink pokeballIndex: "+pokeballIndex);
+				//System.out.println("in pink pokeballIndex: "+pokeballIndex);
 	
 				switch (pokeballIndex) {
 				case 0://pokeball
-					System.out.println("in pokeball pink");
+					//System.out.println("in pokeball pink");
 	
 					pokeballDice[2] = 1;	//3 4 5
 					pokeballDice[3] = 1;
@@ -1770,10 +1790,12 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 	private void handleCatch(MouseEvent clickedSpot){
 		if(isCatching){
 			clickedSpot.consume();
-			String areaClicked = clickedSpot.getTarget().toString();
+			//String areaClicked = clickedSpot.getTarget().toString();
 			//System.out.println("spot clicked " + areaClicked);
 			//System.out.println("current ball index " + pokeballIndex);
-			
+			if(myItemCards[TIMEMACHINE]>0){
+				currentTimeMachineUse=CATCHING;
+			}
 			switch (pokeballIndex) {
 			case 0:
 				isCatching=false;
@@ -2100,8 +2122,18 @@ public class BoardController implements Initializable, PokeChipConstants, SpotCo
 		}
 		else{
 			//check to see if player has a time machine
-			if(myItemCards[TIMEMACHINE]>0&&hasUsedTimeMachine ==false){
-				//show timemachine pane
+			if(currentTimeMachineUse==CATCHING){
+				//pokemon fled
+				System.out.println("Pokemon Fled");
+				pokeballMessage.setText(spots[players[player].currentSpot].pokemon.name+" has fled!\n"
+						+ "You could use a\n"
+						+ "time machine.");
+
+				pokeballPaneExit = true;
+				
+				
+				
+				
 				
 			}
 			else{
